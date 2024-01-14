@@ -1,0 +1,44 @@
+[
+  {
+    "country_code": "AT",
+    "powerUnit": "MW",
+    "wind_capacity": 87,
+    "solar_capacity": 45
+  },
+  {
+    "country_code": "DE",
+    "powerUnit": "MW",
+    "wind_capacity": 87,
+    "solar_capacity": 45
+  },
+  {
+    "country_code": "PL",
+    "powerUnit": "MW",
+    "wind_capacity": 87,
+    "solar_capacity": 45
+  },
+  {
+    "country_code": "CZ",
+    "powerUnit": "MW",
+    "wind_capacity": 87,
+    "solar_capacity": 45
+  },
+  {
+    "country_code": "FR",
+    "powerUnit": "MW",
+    "wind_capacity": 87,
+    "solar_capacity": 45
+  },
+  {
+    "country_code": "SK",
+    "powerUnit": "MW",
+    "wind_capacity": 87,
+    "solar_capacity": 45
+  },
+  {
+    "country_code": "HU",
+    "powerUnit": "MW",
+    "wind_capacity": 87,
+    "solar_capacity": 45
+  }
+]
