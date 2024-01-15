@@ -535,7 +535,7 @@ export default defineComponent({
     const handleMouseDown = (event) => {
       longPressTimer.value = setTimeout(() => {
         handleLongPress(event);
-      }, 100);
+      }, 200);
     };
     //moving
     const handleMouseUp = (event) => {

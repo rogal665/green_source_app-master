@@ -48,6 +48,17 @@ const store = createStore({
         );
         commit("setRegion", response.data);
       } catch (error) {
+        
+        console.error("Błąd pobierania prognozy mocy z API:", error);
+      }
+    },
+    async getAllCountryCapacities({ commit }, country) {
+      try {
+        const response = await axios.get(
+          `http://greenenergydata19892023.dev-bay.com/countries-capacities/`,
+        );
+        commit("setRegion", response.data);
+      } catch (error) {
         console.error("Błąd pobierania prognozy mocy z API:", error);
       }
     },

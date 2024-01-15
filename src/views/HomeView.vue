@@ -141,19 +141,27 @@ export default {
       this.highValue = 12000;
     },
     async selectRegion(SelectedRegion) {
-      console.log(SelectedRegion)
       this.countryFound = false;
-      this.$store.dispatch("getCountryCapacities", SelectedRegion)
-      if(this.$store.getters.getRegion){
+      try {
+        await this.$store.dispatch("getCountryCapacities", SelectedRegion)
+        const countriesDetails = await this.$store.getters.getRegion[0];     
+        this.selectedRegionData = await countriesDetails;
+        this.countryFound = await true;
+      }
+      catch {
+        this.selectedRegionData = {},
+        this.countryFound = await false;
+      }
+
         
-        if (this.$store.getters.getRegion.length === 1){
+        
+      
     
-          const countriesDetails = await getCountrieDetails();
-          
+          /*
           for (const country of countriesDetails.res.data) {
             
             if (country.country_code === SelectedRegion) {
-              console.log(country.country_code)
+              
               this.selectedRegionData = country;
               this.countryFound = true;
               this.selectedRegionData = this.$store.getters.getRegion[0]
@@ -162,8 +170,8 @@ export default {
               return
             }
           }
-        }
-      }
+          */
+
     },
     findSelectedTime(proxyObj, keyToFind) {
       const keys = Object.keys(proxyObj);
