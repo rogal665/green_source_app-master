@@ -85,11 +85,12 @@
         @input="emitValue"
       />
       <div v-if="selectedValue != 'none'" class="scale">
-        <div>
-          {{ formatTime(range[0]) + " - " +  formatDate(range[0])?.slice(0,6)}}
-        </div>
+        <div>{{ formatTime(range[0]) + " - " +  formatDate(range[0])?.slice(0,6)}}</div>
+        <div>{{ formatDate(range[Math.round((range.length - 1)/4)])?.slice(0,6)}}</div>
+        <div>{{ formatDate(range[Math.round((range.length - 1)/2)])?.slice(0,6)}}</div>
+        <div>{{ formatDate(range[Math.round((range.length - 1)/4*3)])?.slice(0,6)}}</div>
         
-        <div>{{  formatTime(range[range.length - 1]) + " - " + formatDate(range[range.length - 1])?.slice(0,6)}}</div>
+        <div>{{ formatTime(range[range.length - 1]) + " - " + formatDate(range[range.length - 1])?.slice(0,6)}}</div>
       </div>
       
     </div>
@@ -110,7 +111,7 @@ export default {
 },
   data() {
     return {
-      selectedValue: 'none',
+      selectedValue: 1,
       showValue: true,
       isScrolling: false,
      
@@ -118,8 +119,8 @@ export default {
   },
 
   watch: {
-    range(range) {
-      this.selectedValue = (range.length - 1).toString()
+    range() {
+      
       this.$emit("time-selected", this.range[this.selectedValue]);
       
     },

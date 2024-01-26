@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="legend-title">Power from wind farms (MW)</div>
+    <div class="legend-title">Power from wind farms (GW)</div>
     <div class="data-scale">
       <div
         class="gradient"
@@ -11,15 +11,15 @@
       <div class="extrime-values">
         <span>{{ this.lowValue }}</span>
         <span>{{
-          this.roundUpToTen((this.highValue - this.lowValue) / 4)
+          this.roundUpToTen((this.highValue - this.lowValue) / 4) / 1000
         }}</span>
         <span>{{
-          this.roundUpToTen((this.highValue - this.lowValue) / 2)
+          this.roundUpToTen((this.highValue - this.lowValue) / 2) / 1000
         }}</span>
         <span>{{
-          this.roundUpToTen(((this.highValue - this.lowValue) / 4) * 3)
+          this.roundUpToTen(((this.highValue - this.lowValue) / 4) * 3) / 1000
         }}</span>
-        <span>{{ this.roundUpToTen(this.highValue - this.lowValue) }}</span>
+        <span>{{ this.roundUpToTen(this.highValue - this.lowValue) / 1000 }}</span>
       </div>
     </div>
   </div>

@@ -7,6 +7,10 @@
       :style="{ transform: `scale(${scale})`, transformOrigin: position }"
       @mousedown="handleMouseDown"
       @mouseup="handleMouseUp"
+      @click="handleClick"
+      @touchstart="handleTouchStart"
+
+      @touchmove="handleMouseMove"
       @mousemove="handleMouseMove"
       @mouseleave="isDragging = false"
     >
@@ -519,6 +523,9 @@ export default defineComponent({
       scaleChangeController.value = true;
     }
     // coutry
+    const handleClick = (event) => {
+      
+    };
     const handleShortClick = (event) => {
       target.value = event.target.id;
       
@@ -547,13 +554,31 @@ export default defineComponent({
     };
 
     const handleMouseMove = (event) => {
+
+
       if (isDragging.value) {
-        if (scale.value - 1 != 0) {
-          positionX.value -= event.movementX / (scale.value - 1);
+        if(event.type === 'touchmove'){
+          console.log("moving")
+          if (scale.value - 1 != 0) {
+            positionX.value -= event.touches[0].clientX / (scale.value - 1);
+          }
+          if (scale.value - 1 != 0) {
+            positionY.value -= event.touches[0].clientY / (scale.value - 1);
+          }
+        }else{
+          
+          if (scale.value - 1 != 0) {
+            positionX.value -= event.movementX / (scale.value - 1);
+          }
+          if (scale.value - 1 != 0) {
+            positionY.value -= event.movementY / (scale.value - 1);
+          }
         }
-        if (scale.value - 1 != 0) {
-          positionY.value -= event.movementY / (scale.value - 1);
-        }
+      
+     
+
+
+
         if (
           positionX.value >
           (mapSvg.value.getBoundingClientRect().width - window.innerWidth) /
@@ -608,6 +633,7 @@ export default defineComponent({
       handleMouseDown,
       handleMouseUp,
       handleMouseMove,
+      handleClick,
       mapSvg,
     };
   },

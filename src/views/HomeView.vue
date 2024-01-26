@@ -11,6 +11,11 @@
     >
     </GreenSourceMap>
     <div class="bottom-hud">
+      <TimeLine
+        class="timeline"
+        @time-selected="handleSelectedTime"
+        :range="dateRange"
+      ></TimeLine>
       <MapLegend
         class="legend"
         :lowColor="lowColor"
@@ -18,11 +23,7 @@
         :lowValue="lowValue"
         :highValue="highValue"
       ></MapLegend>
-      <TimeLine
-        class="timeline"
-        @time-selected="handleSelectedTime"
-        :range="dateRange"
-      ></TimeLine>
+      
     </div>
     <div class="right-hud">
       <MapSettings
@@ -153,24 +154,7 @@ export default {
         this.countryFound = await false;
       }
 
-        
-        
-      
-    
-          /*
-          for (const country of countriesDetails.res.data) {
-            
-            if (country.country_code === SelectedRegion) {
-              
-              this.selectedRegionData = country;
-              this.countryFound = true;
-              this.selectedRegionData = this.$store.getters.getRegion[0]
-            }else {
-              this.countryFound = false;
-              return
-            }
-          }
-          */
+   
 
     },
     findSelectedTime(proxyObj, keyToFind) {
