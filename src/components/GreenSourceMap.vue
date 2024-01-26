@@ -5,14 +5,16 @@
       id="map"
       class="map-container"
       :style="{ transform: `scale(${scale})`, transformOrigin: position }"
+      @click="handleClick"
       @mousedown="handleMouseDown"
       @mouseup="handleMouseUp"
-      @click="handleClick"
-      @touchstart="handleTouchStart"
-
-      @touchmove="handleMouseMove"
       @mousemove="handleMouseMove"
-      @mouseleave="isDragging = false"
+      
+      @touchmove="handleMouseMove"
+      @touchstart="handleMouseDown"
+      @touchend="handleMouseUp"
+
+      
     >
       <svg ref="mapSvg" version="1.1" viewBox="50 300 450 450">
         <g>
@@ -412,6 +414,8 @@ export default defineComponent({
     const scaleChange = ref(0);
     const positionX = ref(0);
     const positionY = ref(0);
+    const prevScrollX = ref(0);
+    const prevScrollY = ref(0);
     const position = ref("0 0");
     const longPressTimer = ref(0);
     const isDragging = ref(false);
@@ -524,13 +528,13 @@ export default defineComponent({
     }
     // coutry
     const handleClick = (event) => {
-      
+      emit("select-region", event.target.id);
     };
     const handleShortClick = (event) => {
       target.value = event.target.id;
       
-      emit("select-region", event.target.id);
-      longPressTimer.value = null;
+      //emit("select-region", event.target.id);
+      // longPressTimer.value = null;
     };
 
     const handleLongPress = (event) => {
@@ -540,39 +544,53 @@ export default defineComponent({
     };
 
     const handleMouseDown = (event) => {
-      longPressTimer.value = setTimeout(() => {
-        handleLongPress(event);
-      }, 200);
+      // longPressTimer.value = setTimeout(() => {
+      //   handleLongPress(event);
+      // }, 200);
+      isDragging.value = true;
+      console.log('mouse down')
     };
+
     //moving
     const handleMouseUp = (event) => {
-      clearTimeout(longPressTimer.value);
-      if (isDragging.value === false) {
-        handleShortClick(event);
-      }
+      // clearTimeout(longPressTimer.value);
+      // if (isDragging.value === false) {
+      //   handleShortClick(event);
+      // }
+      console.log('mouse up')
       isDragging.value = false;
+
+      prevScrollX.value = 0;
+      prevScrollY.value = 0;
     };
 
     const handleMouseMove = (event) => {
 
-
       if (isDragging.value) {
         if(event.type === 'touchmove'){
-          console.log("moving")
-          if (scale.value - 1 != 0) {
-            positionX.value -= event.touches[0].clientX / (scale.value - 1);
+          console.log("moving 1", event)
+          if (prevScrollX.value !== 0 && scale.value - 1 != 0) {
+            positionX.value -= (event.touches[0].screenX - prevScrollX.value) / (scale.value - 1);
           }
-          if (scale.value - 1 != 0) {
-            positionY.value -= event.touches[0].clientY / (scale.value - 1);
+          if (prevScrollX.value !== 0 && scale.value - 1 != 0) {
+            positionY.value -= (event.touches[0].screenY - prevScrollY.value) / (scale.value - 1);
           }
+
+          prevScrollX.value = event.touches[0].screenX;
+          prevScrollY.value = event.touches[0].screenY;
         }else{
-          
-          if (scale.value - 1 != 0) {
-            positionX.value -= event.movementX / (scale.value - 1);
+          console.log(prevScrollX.value);
+          console.log(prevScrollY.value);
+
+          if (prevScrollX.value !== 0 && scale.value - 1 != 0) {
+            positionX.value -= (event.screenX - prevScrollX.value) / (scale.value - 1);
           }
-          if (scale.value - 1 != 0) {
-            positionY.value -= event.movementY / (scale.value - 1);
+          if (prevScrollX.value !== 0 && scale.value - 1 != 0) {
+            positionY.value -= (event.screenY - prevScrollY.value) / (scale.value - 1);
           }
+
+          prevScrollX.value = event.screenX;
+          prevScrollY.value = event.screenY;
         }
       
      
