@@ -34,6 +34,20 @@
         </svg>
 
         <svg
+          @click="playForward"
+          class="timeline-controllers"
+          xmlns="http://www.w3.org/2000/svg"
+          width="16"
+          height="16"
+          fill="#000000"
+          viewBox="0 0 256 256"
+        >
+          <path
+            d="M128,24A104,104,0,1,0,232,128,104.13,104.13,0,0,0,128,24Zm36.44,110.66-48,32A8.05,8.05,0,0,1,112,168a8,8,0,0,1-8-8V96a8,8,0,0,1,12.44-6.66l48,32a8,8,0,0,1,0,13.32Z"
+          ></path>
+        </svg>
+
+        <svg
           @click="scrollForward"
           class="timeline-controllers"
           xmlns="http://www.w3.org/2000/svg"
@@ -114,7 +128,7 @@ export default {
       selectedValue: 1,
       showValue: true,
       isScrolling: false,
-     
+      lastValueIndex: 0
     };
   },
 
@@ -135,27 +149,28 @@ export default {
       this.scrollTo(0);
     },
     scrollBackward() {
-      if (!this.isScrolling) {
-        this.isScrolling = true;
-        const lastValueIndex = 0;
-        const interval = 200;
 
-        const scrollInterval = setInterval(() => {
-          if (this.selectedValue > lastValueIndex) {
-            this.selectedValue--;
-          } else {
-            this.stopScrolling();
-          }
-        }, interval);
-
-        this.$data.scrollInterval = scrollInterval;
+      if (this.selectedValue > 0) {
+        this.selectedValue--;
+      } else {
+        this.stopScrolling();
       }
+
     },
     scrollForward() {
+      const lastValueIndex = this.range.length - 1;
+      
+      if (this.selectedValue < lastValueIndex) {
+        this.selectedValue++;
+      } else {
+        this.stopScrolling();
+      }
+    },
+    playForward() {
       if (!this.isScrolling) {
         this.isScrolling = true;
         const lastValueIndex = this.range.length - 1;
-        const interval = 200;
+        const interval = 1000;
 
         const scrollInterval = setInterval(() => {
           if (this.selectedValue < lastValueIndex) {
