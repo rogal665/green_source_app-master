@@ -34,6 +34,7 @@
       <RegionDetails
         class="region-details"
         :selectedRegionData="selectedRegionData"
+        :selectedTime="selectedTime"
       ></RegionDetails>
     </div>
     <div
@@ -74,8 +75,8 @@ export default {
       selectedTime: "",
       selectedRegion: "",
       selectedRegionData: {},
-      lowColor: "#46D60D",
-      highColor: "#D6390D",
+      lowColor: "#D6390D",
+      highColor: "#46D60D",
       maxPowerValue: 12000,
       lowValue: 0,
       highValue: 0,

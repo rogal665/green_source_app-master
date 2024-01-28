@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="legend-title">Power from wind farms (GW)</div>
+    <div class="legend-title">Green power ratio <br><small>[%  of electric power from wind to total country installed capcity]</small></div>
     <div class="data-scale">
       <div
         class="gradient"
@@ -9,17 +9,11 @@
         }"
       ></div>
       <div class="extrime-values">
-        <span>{{ this.lowValue }}</span>
-        <span>{{
-          this.roundUpToTen((this.highValue - this.lowValue) / 4) / 1000
-        }}</span>
-        <span>{{
-          this.roundUpToTen((this.highValue - this.lowValue) / 2) / 1000
-        }}</span>
-        <span>{{
-          this.roundUpToTen(((this.highValue - this.lowValue) / 4) * 3) / 1000
-        }}</span>
-        <span>{{ this.roundUpToTen(this.highValue - this.lowValue) / 1000 }}</span>
+        <span>0%</span>
+        <span>25%</span>
+        <span>50%</span>
+        <span>75%</span>
+        <span>100%</span>
       </div>
     </div>
   </div>

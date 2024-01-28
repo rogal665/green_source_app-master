@@ -1,49 +1,47 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap");
-$small-text: 0.8rem;
-$main-colour: #087f5b;
-$main-colour-light: #099268;
-$main-colour-extra-light: #96f2d7;
-$main-colour-dark: #064431;
-$grey-colour: #343a40;
-$grey-colour-dark: #212529;
-$grey-colour-darker-dark: #15181b;
-$grey-colour-light: #dee2e6;
-
 /*global*/
 * {
   font-family: Inter, sens-serif;
   font-weight: 500;
   line-height: 1.75;
   font-size: 2vw;
-  @media (min-width: 800px) {
+}
+
+@media (min-width: 800px) {
+  * {
     font-size: 16px;
   }
 }
+
 body {
-  color: $grey-colour;
+  color: #343a40;
   overflow: hidden;
 }
+
 .btn:link,
 .btn:visited {
-  background-color: $main-colour;
+  background-color: #087f5b;
   text-decoration: none;
-  color: $grey-colour-light;
+  color: #dee2e6;
   text-transform: uppercase;
   padding: 0.3rem 2rem;
   display: inline-block;
   margin: 3px 5px;
   border-radius: 5px;
 }
+
 .btn:hover,
 .btn:active {
-  background-color: $main-colour-light;
+  background-color: #099268;
 }
+
 .navbar {
   z-index: 2;
-  background-color: $grey-colour-dark;
+  background-color: #212529;
   text-align: right;
   height: 3rem;
 }
+
 .content {
   height: 1fr;
 }
@@ -68,6 +66,7 @@ h5 {
   margin: 3rem 0 1.38rem;
   line-height: 1.3;
 }
+
 h1 {
   margin-top: 0;
   font-size: 3.052rem;
@@ -76,12 +75,15 @@ h1 {
 h2 {
   font-size: 2.441rem;
 }
+
 h3 {
   font-size: 1.953rem;
 }
+
 h4 {
   font-size: 1.563rem;
 }
+
 h5 {
   font-size: 1.25rem;
 }
@@ -96,6 +98,7 @@ h5 {
 .map-container {
   overflow: hidden;
 }
+
 .bottom-hud {
   z-index: 1;
   position: absolute;
@@ -104,6 +107,7 @@ h5 {
   display: grid;
   grid-template-columns: 70vw 20rem;
 }
+
 .right-hud {
   z-index: 1;
   position: absolute;
@@ -111,24 +115,18 @@ h5 {
   right: 0;
   display: flex;
 }
+
 .map {
   z-index: 1;
 }
-.timeline {
-}
-.region-details {
-}
-.legend {
-}
 
-.settings {
-}
 /*map*/
 .map {
   width: 100%;
   height: 100vh;
-  background-color: $grey-colour-darker-dark;
+  background-color: #15181b;
 }
+
 .vue-world-map {
   position: relative;
 }
@@ -136,7 +134,7 @@ h5 {
 .map-container {
   width: 2000px;
   position: absolute;
-  background-color: $grey-colour-darker-dark;
+  background-color: #15181b;
 }
 
 .settings {
@@ -147,20 +145,23 @@ h5 {
 
 /*map time line*/
 .timeline {
-  background-color: $grey-colour-dark;
+  background-color: #212529;
   border-radius: 5px;
   margin: 1.3rem 0.3rem;
-  color: $grey-colour-light;
-  font-size: $small-text;
+  color: #dee2e6;
+  font-size: 0.8rem;
   padding: 0 10px;
 }
+
 .current-time {
   justify-content: center;
 }
+
 .controlers-container {
   margin-left: auto;
   margin-right: auto;
 }
+
 .scale {
   display: flex;
   justify-content: space-between;
@@ -179,6 +180,7 @@ h5 {
   opacity: 0.7;
   transition: opacity 0.2s;
 }
+
 .slider::-webkit-slider-thumb {
   -webkit-appearance: none;
   appearance: none;
@@ -188,10 +190,9 @@ h5 {
   border: 2px solid #ccc;
   border-radius: 50%;
   cursor: pointer;
-  transition:
-    background-color 0.2s,
-    border-color 0.2s;
+  transition: background-color 0.2s, border-color 0.2s;
 }
+
 .slider::-moz-range-thumb {
   width: 1.4rem;
   height: 1.4rem;
@@ -199,9 +200,7 @@ h5 {
   border: 2px solid #ccc;
   border-radius: 50%;
   cursor: pointer;
-  transition:
-    background-color 0.2s,
-    border-color 0.2s;
+  transition: background-color 0.2s, border-color 0.2s;
 }
 
 .slider::-ms-thumb {
@@ -211,9 +210,7 @@ h5 {
   border: 2px solid #ccc;
   border-radius: 50%;
   cursor: pointer;
-  transition:
-    background-color 0.2s,
-    border-color 0.2s;
+  transition: background-color 0.2s, border-color 0.2s;
 }
 
 .slider:hover {
@@ -229,66 +226,69 @@ h5 {
 
 .timeline-controllers {
   margin-top: 5px;
-  fill: $main-colour;
+  fill: #087f5b;
   display: inline-block;
   width: 30px;
   height: 30px;
   margin-right: 5px;
   margin-left: 5px;
   stroke-width: 1px;
-
-  img {
-    max-width: 100%;
-  }
 }
+
+.timeline-controllers img {
+  max-width: 100%;
+}
+
 /*legend*/
 .legend {
   display: flex;
   flex-direction: column;
   margin: 1.3rem 2rem;
-  background-color: $grey-colour-dark;
-  color: $grey-colour-light;
+  background-color: #212529;
+  color: #dee2e6;
   border-radius: 5px;
   padding: 10px;
   text-align: center;
 }
+
 .legend-title {
   margin-bottom: 10px;
   margin-left: auto;
   margin-right: auto;
   line-height: 1.1;
 }
+
 .data-scale {
   margin-left: auto;
   margin-right: auto;
 }
+
 .gradient {
   margin: auto;
   width: 15rem;
   height: 20px;
   border-radius: 3px;
 }
+
 .extrime-values {
   display: flex;
   justify-content: space-between;
-  font-size: $small-text;
+  font-size: 0.8rem;
 }
+
 /*settings*/
 .scale-btn {
   display: block;
-  background-color: $main-colour;
+  background-color: #087f5b;
   width: 2rem;
   height: 2rem;
   border-radius: 5px;
   border-style: none;
-  color: $grey-colour-light;
+  color: #dee2e6;
 }
 
 .scale-btn:hover {
-  background-color: $main-colour-light;
-}
-
-.zoom-slider-container {
+  background-color: #099268;
 }
 
 .zoom-slider {
@@ -302,6 +302,7 @@ h5 {
   margin-top: 3.125rem;
   margin-bottom: 3.125rem;
 }
+
 .zoom-slider::-webkit-slider-thumb {
   -webkit-appearance: none;
   appearance: none;
@@ -311,10 +312,9 @@ h5 {
   border: 2px solid #ccc;
   border-radius: 50%;
   cursor: pointer;
-  transition:
-    background-color 0.2s,
-    border-color 0.2s;
+  transition: background-color 0.2s, border-color 0.2s;
 }
+
 .zoom-slider::-moz-range-thumb {
   width: 20px;
   height: 20px;
@@ -322,9 +322,7 @@ h5 {
   border: 2px solid #ccc;
   border-radius: 50%;
   cursor: pointer;
-  transition:
-    background-color 0.2s,
-    border-color 0.2s;
+  transition: background-color 0.2s, border-color 0.2s;
 }
 
 .zoom-slider::-ms-thumb {
@@ -334,9 +332,7 @@ h5 {
   border: 2px solid #ccc;
   border-radius: 50%;
   cursor: pointer;
-  transition:
-    background-color 0.2s,
-    border-color 0.2s;
+  transition: background-color 0.2s, border-color 0.2s;
 }
 
 .zoom-slider:hover {
@@ -353,18 +349,19 @@ h5 {
 /*details*/
 .region-details {
   margin: 0 0.3rem;
-  background-color: $grey-colour-dark;
-  color: $grey-colour-light;
+  background-color: #212529;
+  color: #dee2e6;
   border-radius: 5px;
   padding: 10px;
   width: 18rem;
   height: 21rem;
-
-  h3 {
-    margin-top: 10px;
-    margin-bottom: 10px;
-  }
 }
+
+.region-details h3 {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
 .mouse-follower {
   position: absolute;
   background-color: #ff5733;

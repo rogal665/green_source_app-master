@@ -1,9 +1,14 @@
 <template>
   <div v-if="selectedRegionData.country_code" class="details-container">
     <h3>{{ selectedCountry }}</h3>
-    <p>Energy from wind capity: {{ selectedRegionData.wind_capacity }}MW</p>
-    <p>Energy from solar capity: {{ selectedRegionData.solar_capacity }}MW</p>
-    <p>Single wind avg: {{ parseFloat(selectedRegionData.single_wind_avg).toFixed(2) }}MW</p>
+    <p>Total installed capacity: {{ totalCapacity }} GW</p>
+    <p>Wind installed capity: {{ windCapacity }} GW</p>
+    <p v-if="false">Solar installed capity: {{ solarCapacity }} GW</p>
+    <hr>
+    <p>Current forecast time: {{ displayTime }}</p>
+    <p>Forcasted electricity from wind: {{ displayCurrentWindPower }} GW</p>
+    <p>Forecasted ratio of electricity from wind to total wind capacity: {{ displayCurrentRatioWindToInstalledWindPower }} %</p>
+    <p>Forecasted ratio of electricity from wind to total installed capacity: {{ displayCurrentRatioWindToInstalledTotalPower }} %</p>
   </div>
 </template>
 
@@ -13,15 +18,34 @@ export default {
   name: "RegionDetails",
   props: {
     selectedRegionData: {},
+    selectedTime: null
   },
   watch: {
     selectedRegionData(selectedRegionData) {
       this.selectedCountry =
         this.countriesCodes[selectedRegionData.country_code];
     },
+    selectedTime () {
+      const currentObj = this.storeData.find((item) => {
+        return item.country_code === this.selectedRegionData.country_code && item.time_iso === this.selectedTime;
+      });
+
+      if(currentObj) {
+        this.displayTime = currentObj.time;
+        this.displayCurrentWindPower = Math.round(currentObj.wind_power) / 1000;
+        this.displayCurrentRatioWindToInstalledWindPower = (this.displayCurrentWindPower / this.windCapacity) * 100;
+        this.displayCurrentRatioWindToInstalledTotalPower = (this.displayCurrentWindPower / this.totalCapacity) * 100;
+      }
+    }
   },
   data() {
     return {
+      austriaTotalCapacity: 8,
+      hungaryTotalCapacity: 5.9,
+      displayTime: '',
+      displayCurrentWindPower: 0,
+      displayCurrentRatioWindToInstalledWindPower: 0,
+      displayCurrentRatioWindToInstalledTotalPower: 0,
       selectedCountry: "",
       countriesCodes: {
         AF: "Afghanistan",
@@ -273,6 +297,26 @@ export default {
       },
     };
   },
+  computed: {
+    windCapacity () {
+      return this.selectedRegionData.wind_capacity / 1000;
+    },
+    solarCapacity () {
+      return this.selectedRegionData.solar_capacity / 1000;
+    },
+    storeData() {
+      return this.$store.getters.getData;
+    },
+    totalCapacity () {
+      if(this.selectedRegionData.country_code === 'AT') {
+        return this.austriaTotalCapacity;
+      }
+
+      if(this.selectedRegionData.country_code === 'HU') {
+        return this.hungaryTotalCapacity;
+      }
+    }
+  }
 };
 </script>
 
