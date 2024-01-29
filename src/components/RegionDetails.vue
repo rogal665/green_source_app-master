@@ -1,47 +1,39 @@
 <template>
   <div v-if="selectedRegionData.country_code" class="details-container">
     <h3>{{ selectedCountry }}</h3>
-    <p>Total installed capacity: {{ totalCapacity }} GW</p>
-    <p>Wind installed capity: {{ windCapacity }} GW</p>
-    <p v-if="false">Solar installed capity: {{ solarCapacity }} GW</p>
+    <p>Total installed capacity: <strong>{{ totalCapacity }} GW</strong></p>
+    <p>Wind installed capacity: <strong>{{ windCapacity }} GW</strong></p>
+    <p v-if="false">Solar installed capity: <strong>{{ solarCapacity }}</strong> GW</p>
     <hr>
-    <p>Current forecast time: {{ displayTime }}</p>
-    <p>Forcasted electricity from wind: {{ displayCurrentWindPower }} GW</p>
-    <p>Forecasted ratio of electricity from wind to total wind capacity: {{ displayCurrentRatioWindToInstalledWindPower }} %</p>
-    <p>Forecasted ratio of electricity from wind to total installed capacity: {{ displayCurrentRatioWindToInstalledTotalPower }} %</p>
+    <p><strong>Forecast time: {{ displayTime }}</strong></p>
+    <p>Wind electricity: <strong>{{ displayCurrentWindPower }} GW</strong></p>
+    <p>Ratio of forecasted wind electricity to installed wind capacity: <strong>{{ displayCurrentRatioWindToInstalledWindPower }}%</strong></p>
+    <p>Ratio of forecasted wind electricity to total installed capacity: <strong>{{ displayCurrentRatioWindToInstalledTotalPower }}%</strong></p>
   </div>
 </template>
 
 <script>
 import "@/main.scss";
+import { naiveRound } from '../services/utils.js'
+
 export default {
   name: "RegionDetails",
   props: {
+    totalCapacities: {},
     selectedRegionData: {},
     selectedTime: null
   },
   watch: {
     selectedRegionData(selectedRegionData) {
-      this.selectedCountry =
-        this.countriesCodes[selectedRegionData.country_code];
+      this.selectedCountry = this.countriesCodes[selectedRegionData.country_code];
+      this.recalcForecastdetails();
     },
     selectedTime () {
-      const currentObj = this.storeData.find((item) => {
-        return item.country_code === this.selectedRegionData.country_code && item.time_iso === this.selectedTime;
-      });
-
-      if(currentObj) {
-        this.displayTime = currentObj.time;
-        this.displayCurrentWindPower = Math.round(currentObj.wind_power) / 1000;
-        this.displayCurrentRatioWindToInstalledWindPower = (this.displayCurrentWindPower / this.windCapacity) * 100;
-        this.displayCurrentRatioWindToInstalledTotalPower = (this.displayCurrentWindPower / this.totalCapacity) * 100;
-      }
+      this.recalcForecastdetails();
     }
   },
   data() {
     return {
-      austriaTotalCapacity: 8,
-      hungaryTotalCapacity: 5.9,
       displayTime: '',
       displayCurrentWindPower: 0,
       displayCurrentRatioWindToInstalledWindPower: 0,
@@ -297,6 +289,20 @@ export default {
       },
     };
   },
+  methods: {
+    recalcForecastdetails () {
+      const currentObj = this.storeData.find((item) => {
+        return item.country_code === this.selectedRegionData.country_code && item.time_iso === this.selectedTime;
+      });
+
+      if(currentObj) {
+        this.displayTime = currentObj.time;
+        this.displayCurrentWindPower = naiveRound(Math.round(currentObj.wind_power) / 1000);
+        this.displayCurrentRatioWindToInstalledWindPower = naiveRound((this.displayCurrentWindPower / this.windCapacity) * 100);
+        this.displayCurrentRatioWindToInstalledTotalPower = naiveRound((this.displayCurrentWindPower / this.totalCapacity) * 100);
+      }
+    }
+  },
   computed: {
     windCapacity () {
       return this.selectedRegionData.wind_capacity / 1000;
@@ -309,11 +315,11 @@ export default {
     },
     totalCapacity () {
       if(this.selectedRegionData.country_code === 'AT') {
-        return this.austriaTotalCapacity;
+        return this.totalCapacities.AT;
       }
 
       if(this.selectedRegionData.country_code === 'HU') {
-        return this.hungaryTotalCapacity;
+        return this.totalCapacities.HU;
       }
     }
   }

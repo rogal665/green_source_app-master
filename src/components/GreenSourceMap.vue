@@ -380,6 +380,7 @@ import {
 
 export default defineComponent({
   props: {
+    totalCapacities: {},
     lowColor: {
       type: String,
       default: "#fde2e2",
@@ -450,6 +451,7 @@ export default defineComponent({
       const dynamicMapCss = getDynamicMapCss(
         props.countryData,
         chromaScale.value,
+        props.totalCapacities
       );
       node.value.innerHTML = getCombinedCssString(baseCss, dynamicMapCss);
     }

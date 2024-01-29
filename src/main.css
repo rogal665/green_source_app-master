@@ -13,6 +13,10 @@
   }
 }
 
+strong {
+  font-weight: bold;
+}
+
 body {
   color: #343a40;
   overflow: hidden;
@@ -350,16 +354,30 @@ h5 {
 .region-details {
   margin: 0 0.3rem;
   background-color: #212529;
-  color: #dee2e6;
+  color: #fff;
   border-radius: 5px;
   padding: 10px;
-  width: 18rem;
-  height: 21rem;
+  width: 20rem;
+  height: 22rem;
 }
 
 .region-details h3 {
-  margin-top: 10px;
-  margin-bottom: 10px;
+  margin-top: 8px;
+  margin-bottom: 8px;
+  font-size: 22px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.region-details p {
+  font-size: 14px;
+  margin-bottom: 8px;
+  line-height: 1.4;
+  font-weight: normal;
+}
+
+.region-details p strong {
+  font-size: inherit;
 }
 
 .mouse-follower {

@@ -6,6 +6,7 @@
       :lowColor="lowColor"
       :highColor="highColor"
       :injectedScale="scale"
+      :totalCapacities="totalCapacities"
       @select-region="selectRegion"
       @scale-value="handleScale"
     >
@@ -35,6 +36,7 @@
         class="region-details"
         :selectedRegionData="selectedRegionData"
         :selectedTime="selectedTime"
+        :totalCapacities="totalCapacities"
       ></RegionDetails>
     </div>
     <div
@@ -87,6 +89,10 @@ export default {
       followerWidth: 100,
       followerHeight: 50,
       countryHover: "",
+      totalCapacities: { // in the future should be taken from API
+        AT: 8,
+        HU: 5.9
+      }
     };
   },
   methods: {
@@ -127,6 +133,7 @@ export default {
       this.lowValue = 0;
       this.highValue = 0;
       for (const key in this.countryData) {
+        
         if (Object.prototype.hasOwnProperty.call(this.countryData, key)) {
           const value = this.countryData[key];
           if (typeof value === "number") {
@@ -140,7 +147,7 @@ export default {
         }
       }
       //delete if want dynamic scale
-      this.highValue = 12000;
+      // this.highValue = 12000;
     },
     async selectRegion(SelectedRegion) {
       this.countryFound = false;
