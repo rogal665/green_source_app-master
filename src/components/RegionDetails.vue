@@ -34,10 +34,6 @@ export default {
   },
   data() {
     return {
-      displayTime: '',
-      displayCurrentWindPower: 0,
-      displayCurrentRatioWindToInstalledWindPower: 0,
-      displayCurrentRatioWindToInstalledTotalPower: 0,
       selectedCountry: "",
       countriesCodes: {
         AF: "Afghanistan",
@@ -300,6 +296,9 @@ export default {
         this.displayCurrentWindPower = naiveRound(Math.round(currentObj.wind_power) / 1000);
         this.displayCurrentRatioWindToInstalledWindPower = naiveRound((this.displayCurrentWindPower / this.windCapacity) * 100);
         this.displayCurrentRatioWindToInstalledTotalPower = naiveRound((this.displayCurrentWindPower / this.totalCapacity) * 100);
+
+        document.querySelector(`#text-power-${this.selectedRegionData.country_code}`).textContent = this.displayCurrentWindPower + ' GW';
+        document.querySelector(`#text-ratio-${this.selectedRegionData.country_code}`).textContent = this.displayCurrentRatioWindToInstalledTotalPower + '%';
       }
     }
   },

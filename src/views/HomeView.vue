@@ -55,7 +55,7 @@ import TimeLine from "@/components/MapTimeLine.vue";
 import RegionDetails from "@/components/RegionDetails.vue";
 import MapLegend from "@/components/MapLegend.vue";
 import MapSettings from "@/components/MapSettings.vue";
-
+import { naiveRound } from '../services/utils.js'
 import { getCountrieDetails } from "@/services/countries-data";
 
 export default {
@@ -180,7 +180,7 @@ export default {
           
         
           this.countryData = selectedObj;
-          this.countryData.MAX = this.maxPowerValue;
+          //this.countryData.MAX = this.maxPowerValue;
           this.findLowHigh();
         }
       });
@@ -218,6 +218,7 @@ export default {
     handleSelectedTime(SelectedTime) {
       this.selectedTime = SelectedTime;
       this.findSelectedTime(this.uniqueTimeISOObj, this.selectedTime);
+      this.recalcForecastDetails();
     },
 
     copyDeteRange() {
@@ -269,6 +270,22 @@ export default {
       this.mouseX = event.clientX;
       this.mouseY = event.clientY;
     },
+    recalcForecastDetails () {
+      Object.keys(this.countryData).forEach((countryCode) => {
+        const currentObj = this.storeData.find((item) => {
+          return item.country_code === countryCode && item.time_iso === this.selectedTime;
+        });
+
+        if(currentObj) {
+          const displayCurrentWindPower = naiveRound(Math.round(currentObj.wind_power) / 1000);
+          const displayCurrentRatioWindToInstalledTotalPower = naiveRound((displayCurrentWindPower / this.totalCapacities[countryCode]) * 100);
+          
+          document.querySelector(`#text-power-${countryCode}`).textContent = displayCurrentWindPower + ' GW';
+          document.querySelector(`#text-ratio-${countryCode}`).textContent = displayCurrentRatioWindToInstalledTotalPower + '%';
+        }
+
+      });
+    }
   },
 
   computed: {

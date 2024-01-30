@@ -158,7 +158,11 @@ h5 {
   padding: 0 10px;
 }
 .current-time {
-  justify-content: center;
+  text-align: center;
+  margin: 3px 0;
+  font-size: 17px;
+  color: #fff;
+  font-weight: bold;
 }
 .controlers-container {
   margin-left: auto;
@@ -351,6 +355,13 @@ h5 {
 .zoom-slider::-ms-thumb:hover {
   background-color: #ccc;
   border-color: #fff;
+}
+
+.svg-text {
+  font-size: 4px;
+  font-weight: 400;
+  fill: #fff;
+  opacity: 0.8;
 }
 
 /*details*/

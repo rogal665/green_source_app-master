@@ -118,7 +118,7 @@ export default {
       if (!this.isScrolling) {
         this.isScrolling = true;
         const lastValueIndex = this.range.length - 1;
-        const interval = 1000;
+        const interval = 1500;
 
         const scrollInterval = setInterval(() => {
           if (this.selectedValue < lastValueIndex) {
