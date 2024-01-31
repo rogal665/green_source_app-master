@@ -34,6 +34,7 @@
       ></MapSettings>
       <RegionDetails
         class="region-details"
+        @close-region-details="closeRegionDetails"
         :selectedRegionData="selectedRegionData"
         :selectedTime="selectedTime"
         :totalCapacities="totalCapacities"
@@ -285,6 +286,9 @@ export default {
         }
 
       });
+    },
+    closeRegionDetails () {
+      this.selectedRegionData = {};
     }
   },
 

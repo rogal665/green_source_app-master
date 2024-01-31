@@ -1,5 +1,9 @@
 <template>
   <div v-if="selectedRegionData.country_code" class="details-container">
+    <a href="#" @click.prevent="closeRegionDetails" class="x-close-btn">
+      <div class="x-line"></div>
+      <div class="x-line"></div>
+    </a>
     <h3>{{ selectedCountry }}</h3>
     <p>Total installed capacity: <strong>{{ totalCapacity }} GW</strong></p>
     <p>Wind installed capacity: <strong>{{ windCapacity }} GW</strong></p>
@@ -286,6 +290,9 @@ export default {
     };
   },
   methods: {
+    closeRegionDetails () {
+      this.$emit('close-region-details');
+    },
     recalcForecastdetails () {
       const currentObj = this.storeData.find((item) => {
         return item.country_code === this.selectedRegionData.country_code && item.time_iso === this.selectedTime;
