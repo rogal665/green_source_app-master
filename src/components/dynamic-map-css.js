@@ -2,7 +2,7 @@ const getColorScaleUnit = (min, max) => 1 / (max - min);
 
 const getMaxAndMinCountryDataValues = (totalCapacities, countryKey) => {
   let min = 0
-  let max = totalCapacities[countryKey] * 1000;
+  let max = totalCapacities && totalCapacities[countryKey] ? totalCapacities[countryKey] * 1000 : 0;
 
   // Object.keys(countryData).forEach((key) => {
   //   if (key === "unknown") return;

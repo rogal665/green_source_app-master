@@ -90,10 +90,7 @@ export default {
       followerWidth: 100,
       followerHeight: 50,
       countryHover: "",
-      totalCapacities: { // in the future should be taken from API
-        AT: 8,
-        HU: 5.9
-      }
+      totalCapacities: {}
     };
   },
   methods: {
@@ -120,7 +117,10 @@ export default {
       const currentTime = Date.now();
       const twentyFourHoursAgo = currentTime - 24 * 60 * 60 * 1000;
       await this.$store.dispatch("getPowerForecast", {country: ["HU", "IT", "PL"]});
-      
+      await this.$store.dispatch("getAllCountryCapacities");
+
+      this.totalCapacities = this.$store.getters.getTotalCapacities;
+      console.log("CAPACITIES: ", this.totalCapacities);
       this.uniqueTimeISOObj = this.getUniqueTimeISOWithCountry(
         this.sortedData(this.storeData),
       );
@@ -154,13 +154,13 @@ export default {
       this.countryFound = false;
       try {
         await this.$store.dispatch("getCountryCapacities", SelectedRegion)
-        const countriesDetails = await this.$store.getters.getRegion[0];     
-        this.selectedRegionData = await countriesDetails;
-        this.countryFound = await true;
+        const countriesDetails = await this.$store.getters.getRegion[0];
+        this.selectedRegionData = countriesDetails;
+        this.countryFound = true;
       }
       catch {
         this.selectedRegionData = {},
-        this.countryFound = await false;
+        this.countryFound = false;
       }
 
    
@@ -276,13 +276,13 @@ export default {
         const currentObj = this.storeData.find((item) => {
           return item.country_code === countryCode && item.time_iso === this.selectedTime;
         });
-
+        console.log("currentObj: ", currentObj);
         if(currentObj) {
-          const displayCurrentWindPower = naiveRound(Math.round(currentObj.wind_power) / 1000);
-          const displayCurrentRatioWindToInstalledTotalPower = naiveRound((displayCurrentWindPower / this.totalCapacities[countryCode]) * 100);
-          
-          document.querySelector(`#text-power-${countryCode}`).textContent = displayCurrentWindPower + ' GW';
-          document.querySelector(`#text-ratio-${countryCode}`).textContent = displayCurrentRatioWindToInstalledTotalPower + '%';
+          const displayCurrentWindAndSolarPower = naiveRound(Math.round(parseFloat(currentObj.wind_power) + parseFloat(currentObj.solar_power)) / 1000);
+          const displayCurrentRatioWindAndSolarToItsSumPower = naiveRound((displayCurrentWindAndSolarPower / parseFloat(this.totalCapacities[countryCode])) * 100);
+
+          document.querySelector(`#text-power-${countryCode}`).textContent = displayCurrentWindAndSolarPower + ' GW';
+          document.querySelector(`#text-ratio-${countryCode}`).textContent = displayCurrentRatioWindAndSolarToItsSumPower + '%';
         }
 
       });
@@ -308,17 +308,11 @@ export default {
       };
     },
   },
-
-  created() {
-    this.data = this.fetchData();
-    this.intervalId = setInterval(() => {
-      this.data = this.fetchData();
-    }, 10000);
-  },
   mounted() {
     this.setDefaultTime();
     this.findSelectedTime(this.uniqueTimeISOObj, this.selectedTime);
     document.addEventListener("mousemove", this.updateMousePosition);
+    this.data = this.fetchData();
   },
 
   beforeUnmount() {

@@ -5,14 +5,16 @@
       <div class="x-line"></div>
     </a>
     <h3>{{ selectedCountry }}</h3>
-    <p>Total installed capacity: <strong>{{ totalCapacity }} GW</strong></p>
     <p>Wind installed capacity: <strong>{{ windCapacity }} GW</strong></p>
-    <p v-if="false">Solar installed capity: <strong>{{ solarCapacity }}</strong> GW</p>
+    <p>Solar installed capity: <strong>{{ solarCapacity }}</strong> GW</p>
+    <p>Sum installed capacity: <strong>{{ totalCapacity }} GW</strong></p>
     <hr>
     <p><strong>Forecast time: {{ displayTime }}</strong></p>
     <p>Wind electricity: <strong>{{ displayCurrentWindPower }} GW</strong></p>
-    <p>Ratio of forecasted wind electricity to installed wind capacity: <strong>{{ displayCurrentRatioWindToInstalledWindPower }}%</strong></p>
-    <p>Ratio of forecasted wind electricity to total installed capacity: <strong>{{ displayCurrentRatioWindToInstalledTotalPower }}%</strong></p>
+    <p>Solar electricity: <strong>{{ displayCurrentSolarPower }} GW</strong></p>
+    <p>Ratio of forecasted WIND electricity to installed WIND capacity: <strong>{{ displayCurrentRatioWindToInstalledWindPower }}%</strong></p>
+    <p>Ratio of forecasted SOLAR electricity to installed SOLAR capacity: <strong>{{ displayCurrentRatioSolarToInstalledSolarPower }}%</strong></p>
+    <p>Ratio of forecasted WIND&SOLAR electricity to both total installed capacity: <strong>{{ displayCurrentRatioWindAndSolarToItsSumPower }}%</strong></p>
   </div>
 </template>
 
@@ -301,11 +303,13 @@ export default {
       if(currentObj) {
         this.displayTime = currentObj.time;
         this.displayCurrentWindPower = naiveRound(Math.round(currentObj.wind_power) / 1000);
+        this.displayCurrentSolarPower = naiveRound(Math.round(currentObj.solar_power) / 1000);
         this.displayCurrentRatioWindToInstalledWindPower = naiveRound((this.displayCurrentWindPower / this.windCapacity) * 100);
-        this.displayCurrentRatioWindToInstalledTotalPower = naiveRound((this.displayCurrentWindPower / this.totalCapacity) * 100);
+        this.displayCurrentRatioSolarToInstalledSolarPower = naiveRound((this.displayCurrentSolarPower / this.solarCapacity) * 100);
+        this.displayCurrentRatioWindAndSolarToItsSumPower = naiveRound(((this.displayCurrentWindPower + this.displayCurrentSolarPower) / this.totalCapacity) * 100);
 
-        document.querySelector(`#text-power-${this.selectedRegionData.country_code}`).textContent = this.displayCurrentWindPower + ' GW';
-        document.querySelector(`#text-ratio-${this.selectedRegionData.country_code}`).textContent = this.displayCurrentRatioWindToInstalledTotalPower + '%';
+        document.querySelector(`#text-power-${this.selectedRegionData.country_code}`).textContent = (this.displayCurrentWindPower + this.displayCurrentSolarPower) + ' GW';
+        document.querySelector(`#text-ratio-${this.selectedRegionData.country_code}`).textContent = this.displayCurrentRatioWindAndSolarToItsSumPower + '%';
       }
     }
   },
@@ -320,13 +324,7 @@ export default {
       return this.$store.getters.getData;
     },
     totalCapacity () {
-      if(this.selectedRegionData.country_code === 'AT') {
-        return this.totalCapacities.AT;
-      }
-
-      if(this.selectedRegionData.country_code === 'HU') {
-        return this.totalCapacities.HU;
-      }
+      return (parseFloat(this.selectedRegionData.wind_capacity) + parseFloat(this.selectedRegionData.solar_capacity)) / 1000;
     }
   }
 };
