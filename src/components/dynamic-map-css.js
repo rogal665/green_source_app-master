@@ -3,7 +3,7 @@ const getColorScaleUnit = (min, max) => 1 / (max - min);
 const getMaxAndMinCountryDataValues = (totalCapacities, countryKey) => {
   let min = 0
   let max = totalCapacities && totalCapacities[countryKey] ? totalCapacities[countryKey] * 1000 : 0;
-
+  
   // Object.keys(countryData).forEach((key) => {
   //   if (key === "unknown") return;
 
@@ -28,8 +28,8 @@ export const getDynamicMapCss = (countryData, chromaScale, totalCapacities) => {
     const { min, max } = getMaxAndMinCountryDataValues(totalCapacities, key);
     const colorScaleUnit = getColorScaleUnit(min, max);
     // debugger;
-    const value = countryData[key];
-    const scaleValue = colorScaleUnit * (value - min);
+    const value = countryData[key] > 0 ? countryData[key] : 0;
+    const scaleValue = value / max;
     const hex = chromaScale(scaleValue).hex();
     
     css.push(`.vue-world-map #${key} { fill: ${hex}; }`);

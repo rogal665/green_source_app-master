@@ -120,7 +120,6 @@ export default {
       await this.$store.dispatch("getAllCountryCapacities");
 
       this.totalCapacities = this.$store.getters.getTotalCapacities;
-      console.log("CAPACITIES: ", this.totalCapacities);
       this.uniqueTimeISOObj = this.getUniqueTimeISOWithCountry(
         this.sortedData(this.storeData),
       );
@@ -241,9 +240,9 @@ export default {
       
       const { time_iso, ...rest } = data;
       if (!this.uniqueTimeISOObj[time_iso]) {
-        this.uniqueTimeISOObj[time_iso] ={ [data.country_code]: data.wind_power } 
+        this.uniqueTimeISOObj[time_iso] ={ [data.country_code]: data.total_power } 
       } else {
-        this.uniqueTimeISOObj[time_iso][data.country_code] = data.wind_power;
+        this.uniqueTimeISOObj[time_iso][data.country_code] = data.total_power;
       }
 
       
@@ -276,7 +275,7 @@ export default {
         const currentObj = this.storeData.find((item) => {
           return item.country_code === countryCode && item.time_iso === this.selectedTime;
         });
-        console.log("currentObj: ", currentObj);
+        
         if(currentObj) {
           const displayCurrentWindAndSolarPower = naiveRound(Math.round(parseFloat(currentObj.wind_power) + parseFloat(currentObj.solar_power)) / 1000);
           const displayCurrentRatioWindAndSolarToItsSumPower = naiveRound((displayCurrentWindAndSolarPower / parseFloat(this.totalCapacities[countryCode])) * 100);

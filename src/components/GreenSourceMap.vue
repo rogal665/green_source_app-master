@@ -464,6 +464,10 @@ export default defineComponent({
       type: String,
       default: "black",
     },
+    totalCapacities: {
+      type: Object,
+      required: true
+    },
     injectedScale: {
       type: Number,
       default: 1.1,

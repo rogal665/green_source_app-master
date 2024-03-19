@@ -41,6 +41,12 @@ export default {
   data() {
     return {
       selectedCountry: "",
+      displayTime: 0,
+      displayCurrentWindPower: 0,
+      displayCurrentSolarPower: 0,
+      displayCurrentRatioWindToInstalledWindPower: 0,
+      displayCurrentRatioSolarToInstalledSolarPower: 0,
+      displayCurrentRatioWindAndSolarToItsSumPower: 0,
       countriesCodes: {
         AF: "Afghanistan",
         AX: "Aland Islands",
