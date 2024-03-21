@@ -310,11 +310,11 @@ export default {
         this.displayTime = currentObj.time;
         this.displayCurrentWindPower = naiveRound(Math.round(currentObj.wind_power) / 1000);
         this.displayCurrentSolarPower = naiveRound(Math.round(currentObj.solar_power) / 1000);
-        this.displayCurrentRatioWindToInstalledWindPower = naiveRound((this.displayCurrentWindPower / this.windCapacity) * 100);
-        this.displayCurrentRatioSolarToInstalledSolarPower = naiveRound((this.displayCurrentSolarPower / this.solarCapacity) * 100);
-        this.displayCurrentRatioWindAndSolarToItsSumPower = naiveRound(((this.displayCurrentWindPower + this.displayCurrentSolarPower) / this.totalCapacity) * 100);
-
-        document.querySelector(`#text-power-${this.selectedRegionData.country_code}`).textContent = (this.displayCurrentWindPower + this.displayCurrentSolarPower) + ' GW';
+        this.displayCurrentRatioWindToInstalledWindPower = naiveRound((this.displayCurrentWindPower / this.windCapacity) * 100, 1);
+        this.displayCurrentRatioSolarToInstalledSolarPower = naiveRound((this.displayCurrentSolarPower / this.solarCapacity) * 100, 1);
+        this.displayCurrentRatioWindAndSolarToItsSumPower = naiveRound(((this.displayCurrentWindPower + this.displayCurrentSolarPower) / this.totalCapacity) * 100, 1);
+        
+        document.querySelector(`#text-power-${this.selectedRegionData.country_code}`).textContent = naiveRound(this.displayCurrentWindPower + this.displayCurrentSolarPower) + ' GW';
         document.querySelector(`#text-ratio-${this.selectedRegionData.country_code}`).textContent = this.displayCurrentRatioWindAndSolarToItsSumPower + '%';
       }
     }

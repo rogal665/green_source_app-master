@@ -278,7 +278,7 @@ export default {
         
         if(currentObj) {
           const displayCurrentWindAndSolarPower = naiveRound(Math.round(parseFloat(currentObj.wind_power) + parseFloat(currentObj.solar_power)) / 1000);
-          const displayCurrentRatioWindAndSolarToItsSumPower = naiveRound((displayCurrentWindAndSolarPower / parseFloat(this.totalCapacities[countryCode])) * 100);
+          const displayCurrentRatioWindAndSolarToItsSumPower = naiveRound((displayCurrentWindAndSolarPower / parseFloat(this.totalCapacities[countryCode])) * 100, 1);
 
           document.querySelector(`#text-power-${countryCode}`).textContent = displayCurrentWindAndSolarPower + ' GW';
           document.querySelector(`#text-ratio-${countryCode}`).textContent = displayCurrentRatioWindAndSolarToItsSumPower + '%';

@@ -1,7 +1,7 @@
 // prettier-ignore
 export const getCountrieDetails = async () => {
     //let countriesDetails = await fetch('http://localhost:3010/countries-capacities');
-    let countriesDetails = await fetch('http://greenenergydata19892023.dev-bay.com/countries-capacities');
+    let countriesDetails = await fetch('https://greenenergydata19892023.dev-bay.com/countries-capacities');
     countriesDetails = await countriesDetails.json()
 
     

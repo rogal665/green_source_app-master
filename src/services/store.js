@@ -28,7 +28,7 @@ const store = createStore({
     async getAllCoutriesData({ commit }) {
       try {
         const response = await axios.get(
-          "http://greenenergydata19892023.dev-bay.com/countries-capacities",
+          "https://greenenergydata19892023.dev-bay.com/countries-capacities",
         );
         commit("setData", response.data);
       } catch (error) {
@@ -38,7 +38,7 @@ const store = createStore({
     async getPowerForecast({ commit }, requestData) {
       try {
         const response = await axios.post(
-          "http://greenenergydata19892023.dev-bay.com/power-forecast",
+          "https://greenenergydata19892023.dev-bay.com/power-forecast",
           requestData,
         );
         
@@ -51,7 +51,7 @@ const store = createStore({
     async getCountryCapacities({ commit }, country) {
       try {
         const response = await axios.get(
-          `http://greenenergydata19892023.dev-bay.com/countries-capacities/${country}`,
+          `https://greenenergydata19892023.dev-bay.com/countries-capacities/${country}`,
         );
         commit("setRegion", response.data);
       } catch (error) {
@@ -62,7 +62,7 @@ const store = createStore({
     async getAllCountryCapacities({ commit }) {
       try {
         const response = await axios.get(
-          `http://greenenergydata19892023.dev-bay.com/countries-capacities/`,
+          `https://greenenergydata19892023.dev-bay.com/countries-capacities/`,
         );
 
         const totalCapacities = response.data.res.data.reduce((acc, currEl) => {
