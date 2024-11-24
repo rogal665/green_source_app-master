@@ -66,7 +66,8 @@ const store = createStore({
         );
 
         const totalCapacities = response.data.res.data.reduce((acc, currEl) => {
-          acc[currEl.country_code] = (parseFloat(currEl.wind_capacity) + parseFloat(currEl.solar_capacity)) / 1000;
+          //acc[currEl.country_code] = (parseFloat(currEl.wind_capacity) + parseFloat(currEl.solar_capacity)) / 1000; // OLD
+          acc[currEl.country_code] = parseFloat(currEl.total_capacity_avg_high) / 1000;
           return acc;
         }, {})
 

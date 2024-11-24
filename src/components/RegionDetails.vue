@@ -5,16 +5,18 @@
       <div class="x-line"></div>
     </a>
     <h3>{{ selectedCountry }}</h3>
-    <p>Wind installed capacity: <strong>{{ windCapacity }} GW</strong></p>
-    <p>Solar installed capity: <strong>{{ solarCapacity }}</strong> GW</p>
-    <p>Sum installed capacity: <strong>{{ totalCapacity }} GW</strong></p>
+    <p><strong>Daily average high generation:</strong></p>
+    <p>Wind: <strong>{{ windCapacity }} GW</strong> | Solar: <strong>{{ solarCapacity }} GW</strong></p>
+    <p>Total: <strong>{{ totalCapacity }} GW</strong></p>
     <hr>
     <p><strong>Forecast time: {{ displayTime }}</strong></p>
     <p>Wind electricity: <strong>{{ displayCurrentWindPower }} GW</strong></p>
     <p>Solar electricity: <strong>{{ displayCurrentSolarPower }} GW</strong></p>
-    <p>Ratio of forecasted WIND electricity to installed WIND capacity: <strong>{{ displayCurrentRatioWindToInstalledWindPower }}%</strong></p>
-    <p>Ratio of forecasted SOLAR electricity to installed SOLAR capacity: <strong>{{ displayCurrentRatioSolarToInstalledSolarPower }}%</strong></p>
-    <p>Ratio of forecasted WIND&SOLAR electricity to both total installed capacity: <strong>{{ displayCurrentRatioWindAndSolarToItsSumPower }}%</strong></p>
+    <hr>
+    <p><strong>Ratio of forecasted generation to average high generation</strong></p>
+    <p>Wind: <strong>{{ displayCurrentRatioWindToInstalledWindPower }}%</strong></p>
+    <p>Solar: <strong>{{ displayCurrentRatioSolarToInstalledSolarPower }}%</strong></p>
+    <p>Total: <strong>{{ displayCurrentRatioWindAndSolarToItsSumPower }}%</strong></p>
   </div>
 </template>
 
@@ -321,17 +323,17 @@ export default {
   },
   computed: {
     windCapacity () {
-      return this.selectedRegionData.wind_capacity / 1000;
+      return this.selectedRegionData.wind_capacity_avg_high / 1000;
     },
     solarCapacity () {
-      return this.selectedRegionData.solar_capacity / 1000;
+      return this.selectedRegionData.solar_capacity_avg_high / 1000;
     },
     storeData() {
       return this.$store.getters.getData;
     },
     totalCapacity () {
-      return (parseFloat(this.selectedRegionData.wind_capacity) + parseFloat(this.selectedRegionData.solar_capacity)) / 1000;
-    }
+      return this.selectedRegionData.total_capacity_avg_high / 1000;
+    },
   }
 };
 </script>
