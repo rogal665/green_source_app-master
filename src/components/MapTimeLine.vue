@@ -47,12 +47,12 @@
         @input="emitValue"
       />
       <div v-if="selectedValue != 'none'" class="scale">
-        <div>{{ formatTime(range[0]) + " - " +  formatDate(range[0])?.slice(0,6)}}</div>
-        <div>{{ formatDate(range[Math.round((range.length - 1)/4)])?.slice(0,6)}}</div>
-        <div>{{ formatDate(range[Math.round((range.length - 1)/2)])?.slice(0,6)}}</div>
-        <div>{{ formatDate(range[Math.round((range.length - 1)/4*3)])?.slice(0,6)}}</div>
+        <div>{{ formatTime(range[0]) + " - " +  formatDate(range[0])?.slice(0,11)}}</div>
+        <div>{{ formatDate(range[Math.round((range.length - 1)/4)])?.slice(0,11)}}</div>
+        <div>{{ formatDate(range[Math.round((range.length - 1)/2)])?.slice(0,11)}}</div>
+        <div>{{ formatDate(range[Math.round((range.length - 1)/4*3)])?.slice(0,11)}}</div>
         
-        <div>{{ formatTime(range[range.length - 1]) + " - " + formatDate(range[range.length - 1])?.slice(0,6)}}</div>
+        <div>{{ formatTime(range[range.length - 1]) + " - " + formatDate(range[range.length - 1])?.slice(0,11)}}</div>
       </div>
       
     </div>
@@ -148,12 +148,13 @@ export default {
     },
     formatDateTime(inputDate) {
       if (inputDate && inputDate !== undefined) {
+        const weekDay = (new Date(inputDate)).toLocaleDateString('en-GB', { weekday: 'long', timeZone: 'UTC' });
         const year = inputDate.slice(0, 4);
         const month = inputDate.slice(5, 7);
         const day = inputDate.slice(8, 10);
         const hours = inputDate.slice(11, 13);
         const minutes = inputDate.slice(14, 16);
-        return `${hours}:${minutes} - ${day} ${this.getShortMonthName(month)} ${year}`;
+        return `${hours}:${minutes} - ${weekDay}, ${day} ${this.getShortMonthName(month)} ${year} [UTC]`;
       }
     },
 
@@ -177,17 +178,18 @@ export default {
         };
         return months[monthNumber];
       } else {
-        return "Błędny miesiąc";
+        return "Wrong month";
       }
     },
   
     
     formatDate(inputDate) {
       if (inputDate) {
+        const weekDay = (new Date(inputDate)).toLocaleDateString('en-GB', { weekday: 'short', timeZone: 'UTC' });
         const year = inputDate.slice(0, 4);
         const month = inputDate.slice(5, 7);
         const day = inputDate.slice(8, 10);
-        return `${day} ${this.getShortMonthName(month)} ${year}`;
+        return `${weekDay}, ${day} ${this.getShortMonthName(month)} ${year}`;
       }
     },
     formatTime(inputDate) {

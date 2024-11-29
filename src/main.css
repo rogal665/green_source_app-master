@@ -260,11 +260,66 @@ h5 {
   text-align: center;
 }
 
-.legend-title {
+.legend-wrapper {
+  margin-bottom: 10px;
+}
+
+.legend-wrapper .legend-title {
   margin-bottom: 10px;
   margin-left: auto;
   margin-right: auto;
   line-height: 1.1;
+}
+
+.legend-wrapper .legend-switch {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.legend-wrapper .legend-switch .switch {
+  position: relative;
+  display: inline-block;
+  width: 40px;
+  height: 20px;
+}
+
+.legend-wrapper .legend-switch .switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.legend-wrapper .legend-switch .switch .slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: 0.4s;
+  border-radius: 20px;
+}
+
+.legend-wrapper .legend-switch .switch .slider:before {
+  position: absolute;
+  content: "";
+  height: 14px;
+  width: 14px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  transition: 0.4s;
+  border-radius: 50%;
+}
+
+.legend-wrapper .legend-switch .switch input:checked + .slider {
+  background-color: #2196F3;
+}
+
+.legend-wrapper .legend-switch .switch input:checked + .slider:before {
+  transform: translateX(20px);
 }
 
 .data-scale {
