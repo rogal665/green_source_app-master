@@ -7,7 +7,9 @@ const store = createStore({
       data: null,
       region: null,
       capacities: null,
-      totalCapacities: null
+      totalCapacities: null,
+      totalLoad: null,
+      isRatioToLoad: false
     };
   },
   mutations: {
@@ -22,6 +24,12 @@ const store = createStore({
     },
     setTotalCapacities(state, newData) {
       state.totalCapacities = newData;
+    },
+    setTotalLoad(state, newData) {
+      state.totalLoad = newData;
+    },
+    setIsRatioToLoad(state, isGeneration) {
+      state.isRatioToLoad = !!isGeneration;
     }
   },
   actions: {
@@ -64,15 +72,21 @@ const store = createStore({
         const response = await axios.get(
           `https://greenenergydata19892023.dev-bay.com/countries-capacities/`,
         );
-
         const totalCapacities = response.data.res.data.reduce((acc, currEl) => {
           //acc[currEl.country_code] = (parseFloat(currEl.wind_capacity) + parseFloat(currEl.solar_capacity)) / 1000; // OLD
           acc[currEl.country_code] = parseFloat(currEl.total_capacity_avg_high) / 1000;
           return acc;
-        }, {})
+        }, {});
+
+        const totalLoad = response.data.res.data.reduce((acc, currEl) => {
+          //acc[currEl.country_code] = (parseFloat(currEl.wind_capacity) + parseFloat(currEl.solar_capacity)) / 1000; // OLD
+          acc[currEl.country_code] = parseFloat(currEl.total_load_avg_high) / 1000;
+          return acc;
+        }, {});
 
         commit("setCapacities", response.data);
         commit("setTotalCapacities", totalCapacities);
+        commit("setTotalLoad", totalLoad);
       } catch (error) {
         console.error("Błąd pobierania prognozy mocy z API:", error);
       }
@@ -90,7 +104,11 @@ const store = createStore({
       return state.capacities;
     },
     getTotalCapacities(state) {
-      return state.totalCapacities;
+      console.log("state", state.isRatioToLoad);
+      return state.isRatioToLoad ? state.totalCapacities : state.totalLoad;
+    },
+    getIsRatioToLoad(state) {
+      return state.isRatioToLoad;
     }
   },
 });

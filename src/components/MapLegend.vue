@@ -2,15 +2,15 @@
   <div>
     <div class="legend-wrapper">
       <div class="legend-title">
-        Green power ratio <br><small>[%  of electricity from wind&sun to both avg-high generation]</small>
+        Green power ratio <br><small>%  of electricity from wind&sun to avg-high...</small>
       </div>
       <div class="legend-switch">
-        <div class="switch-label">Ratio to avg-high generation</div>
+        <div class="switch-label">both generation</div>
         <label class="switch">
-          <input type="checkbox">
+          <input type="checkbox" v-model="isChecked" @input="updateIsRatioToLoad">
           <span class="slider"></span>
         </label>
-        <div class="switch-label">Ratio to avg-high demand</div>
+        <div class="switch-label">total demand</div>
       </div>
     </div>
     <div class="data-scale">
@@ -41,10 +41,19 @@ export default {
     lowValue: Number,
     highValue: Number,
   },
+  data() {
+    return {
+      isChecked: true,
+    };
+  },
   methods: {
     roundUpToTen(number) {
       return Math.ceil(number / 10) * 10;
     },
+    updateIsRatioToLoad() {
+      console.log(this.isChecked);
+      this.$store.commit("setIsRatioToLoad", this.isChecked);
+    }
   },
 };
 </script>

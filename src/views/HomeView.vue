@@ -93,6 +93,12 @@ export default {
       totalCapacities: {}
     };
   },
+  watch: {
+    isRatioToLoad() {
+      this.totalCapacities = this.$store.getters.getTotalCapacities;
+      this.recalcForecastDetails();
+    }
+  },
   methods: {
     sortedData(data) {
       const groupedData = data.reduce((result, data) => {
@@ -292,6 +298,9 @@ export default {
   },
 
   computed: {
+    isRatioToLoad() {
+      return this.$store.getters.getIsRatioToLoad;
+    },
     storeData() {
       return this.$store.getters.getData;
     },

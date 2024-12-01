@@ -265,10 +265,14 @@ h5 {
 }
 
 .legend-wrapper .legend-title {
-  margin-bottom: 10px;
+  margin-bottom: 5px;
   margin-left: auto;
   margin-right: auto;
   line-height: 1.1;
+}
+
+.legend-wrapper .legend-title small {
+  font-size: 14px;
 }
 
 .legend-wrapper .legend-switch {
@@ -277,11 +281,16 @@ h5 {
   align-items: center;
 }
 
+.legend-wrapper .legend-switch .switch-label {
+  font-size: 14px;
+}
+
 .legend-wrapper .legend-switch .switch {
   position: relative;
   display: inline-block;
-  width: 40px;
-  height: 20px;
+  width: 60px;
+  height: 30px;
+  margin: 0 10px;
 }
 
 .legend-wrapper .legend-switch .switch input {
@@ -291,22 +300,24 @@ h5 {
 }
 
 .legend-wrapper .legend-switch .switch .slider {
+  height: 30px;
   position: absolute;
   cursor: pointer;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: #ccc;
+  background-color: #00b717;
   transition: 0.4s;
   border-radius: 20px;
+  opacity: 1;
 }
 
 .legend-wrapper .legend-switch .switch .slider:before {
   position: absolute;
   content: "";
-  height: 14px;
-  width: 14px;
+  height: 24px;
+  width: 24px;
   left: 3px;
   bottom: 3px;
   background-color: white;
@@ -315,11 +326,11 @@ h5 {
 }
 
 .legend-wrapper .legend-switch .switch input:checked + .slider {
-  background-color: #2196F3;
+  background-color: #04aded;
 }
 
 .legend-wrapper .legend-switch .switch input:checked + .slider:before {
-  transform: translateX(20px);
+  transform: translateX(28px);
 }
 
 .data-scale {
@@ -416,6 +427,7 @@ h5 {
   font-weight: 400;
   fill: #fff;
   opacity: 0.8;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 /*details*/

@@ -502,7 +502,7 @@ export default defineComponent({
   },
   setup(props, { emit }) {
     const node = ref(document.createElement("style"));
-    const chromaScale = ref(chroma.scale([props.lowColor, props.highColor]));
+    const chromaScale = ref(chroma.scale([props.lowColor, props.highColor]).mode('lab'));
     const mapContainer = ref(null);
     const map = ref(null);
     const scale = ref(1.1);
@@ -523,9 +523,16 @@ export default defineComponent({
     watch(
       () => props.countryData,
       () => {
-        
         renderMapCSS();
       },
+      { deep: true },
+    );
+    watch(
+      () => props.totalCapacities,
+      () => {
+        renderMapCSS();
+      },
+      { deep: true },
     );
     watch(
       () => props.injectedScale,

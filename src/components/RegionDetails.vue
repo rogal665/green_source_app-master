@@ -10,13 +10,14 @@
     <p>Solar electricity: <strong>{{ displayCurrentSolarPower }} GW</strong></p>
     <hr>
     <p><strong>Ratio of forecasted generation to average high generation</strong></p>
-    <p>Wind: <strong>{{ displayCurrentRatioWindToInstalledWindPower }}%</strong></p>
-    <p>Solar: <strong>{{ displayCurrentRatioSolarToInstalledSolarPower }}%</strong></p>
+    <p>Wind: <strong>{{ displayCurrentRatioWindToInstalledWindPower }}%</strong> | Solar: <strong>{{ displayCurrentRatioSolarToInstalledSolarPower }}%</strong></p>
     <p>Total: <strong>{{ displayCurrentRatioWindAndSolarToItsSumPower }}%</strong></p>
     <hr>
     <p><strong>Daily average high generation:</strong></p>
     <p>Wind: <strong>{{ windCapacity }} GW</strong> | Solar: <strong>{{ solarCapacity }} GW</strong></p>
     <p>Total: <strong>{{ totalCapacity }} GW</strong></p>
+    <hr>
+    <p>Total demand (avg-high): <strong>{{ totalLoad }} GW</strong></p>
   </div>
 </template>
 
@@ -310,7 +311,6 @@ export default {
 
       if(currentObj) {
         this.displayTime = currentObj.time;
-        console.log('elo');
         this.displayCurrentWindPower = naiveRound(Math.round(currentObj.wind_power) / 1000);
         this.displayCurrentSolarPower = naiveRound(Math.round(currentObj.solar_power) / 1000);
         this.displayCurrentRatioWindToInstalledWindPower = naiveRound((this.displayCurrentWindPower / this.windCapacity) * 100, 1);
