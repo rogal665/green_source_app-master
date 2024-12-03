@@ -5,9 +5,9 @@ $main-colour-light: #099268;
 $main-colour-extra-light: #96f2d7;
 $main-colour-dark: #064431;
 $grey-colour: #343a40;
-$grey-colour-dark: #212529;
-$grey-colour-darker-dark: #15181b;
-$grey-colour-light: #dee2e6;
+$grey-colour-dark: rgba(255, 255, 255, 0.95);
+$grey-colour-darker-dark: #ffffff; /*woda*/
+$grey-colour-light: #000000;
 
 /*global*/
 * {
@@ -162,7 +162,7 @@ h5 {
   text-align: center;
   margin: 3px 0;
   font-size: 17px;
-  color: #fff;
+  color: $grey-colour-light;
   font-weight: bold;
 }
 .controlers-container {
@@ -172,6 +172,21 @@ h5 {
 .scale {
   display: flex;
   justify-content: space-between;
+  
+  div {
+    position: relative;
+
+    &::after {
+      content: "";
+      display: block;
+      width: 2px;
+      height: 10px;
+      background-color: $grey-colour-light;
+      top: -6px;
+      left: 50%;
+      position: absolute;
+    }
+  }
 }
 
 .controlers {
@@ -186,14 +201,17 @@ h5 {
   outline: none;
   opacity: 0.7;
   transition: opacity 0.2s;
+  border-radius: 5px;
+  background: #000;
+  box-shadow: 1px 1px 5px #686868;
 }
 .slider::-webkit-slider-thumb {
   -webkit-appearance: none;
   appearance: none;
   width: 1.4rem;
   height: 1.4rem;
-  background: #fff;
-  border: 2px solid #ccc;
+  background: #63a308;
+  box-shadow: 0 0 3px #000;
   border-radius: 50%;
   cursor: pointer;
   transition:
@@ -225,7 +243,8 @@ h5 {
 }
 
 .slider:hover {
-  opacity: 1;
+  opacity: 0.9;
+  box-shadow: 1px 1px 4px #686868;
 }
 
 .slider::-webkit-slider-thumb:hover,
@@ -243,7 +262,7 @@ h5 {
   height: 30px;
   margin-right: 5px;
   margin-left: 5px;
-  stroke-width: 1px;
+  stroke-width: 2px;
 
   img {
     max-width: 100%;

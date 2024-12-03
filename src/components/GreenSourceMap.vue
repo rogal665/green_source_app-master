@@ -485,11 +485,11 @@ export default defineComponent({
     },
     defaultCountryFillColor: {
       type: String,
-      default: "#343a40",
+      default: "#e5e5e5",
     },
     countryStrokeColor: {
       type: String,
-      default: "black",
+      default: "#f3f3f3",
     },
     totalCapacities: {
       type: Object,
@@ -502,7 +502,7 @@ export default defineComponent({
   },
   setup(props, { emit }) {
     const node = ref(document.createElement("style"));
-    const chromaScale = ref(chroma.scale([props.lowColor, props.highColor]).mode('lab'));
+    const chromaScale = ref(chroma.scale([props.lowColor, props.highColor]).mode('hsl'));
     const mapContainer = ref(null);
     const map = ref(null);
     const scale = ref(1.1);

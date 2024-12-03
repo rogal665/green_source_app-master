@@ -17,7 +17,7 @@ const getMaxAndMinCountryDataValues = (totalCapacities, countryKey) => {
 };
 
 export const getBaseCss = ({ defaultCountryFillColor, countryStrokeColor }) =>
-  `.vue-world-map .land{fill:${defaultCountryFillColor};stroke:${countryStrokeColor};stroke-width:0.1;}`;
+  `.vue-world-map .land{fill:${defaultCountryFillColor};stroke:${countryStrokeColor};stroke-width:0.2;}`;
 
 export const getDynamicMapCss = (countryData, chromaScale, totalCapacities) => {
   const css = [];

@@ -5,9 +5,26 @@
       <div class="x-line"></div>
     </a>
     <h3>{{ selectedCountry }}</h3>
-    <p><strong>Forecast time: {{ displayTime }}</strong></p>
-    <p>Wind electricity: <strong>{{ displayCurrentWindPower }} GW</strong></p>
-    <p>Solar electricity: <strong>{{ displayCurrentSolarPower }} GW</strong></p>
+    <p><strong>Electricity generation forecast:<br>{{ displayTime }} [UTC]</strong></p>
+    <p>Wind: <strong>{{ displayCurrentWindPower }} GW</strong> | Solar: <strong>{{ displayCurrentSolarPower }} GW</strong> | Total: <strong>{{ displayCurrentTotalPower }} GW</strong> </p>
+    <hr>
+    <table>
+      <thead>
+        <tr>
+          <th colspan="2">Wind+Sun generation forecast ratio to</th>
+        </tr>
+        <tr>
+          <th>both avg-high generation</th>
+          <th>total demand</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>{{ ratioToAvgGeneration }} ({{ displayCurrentRatioWindAndSolarToItsSumPower }}%)</td>
+          <td>{{ ratioToTotalLoad }} ({{ displayCurrentRatioWindAndSolarToTotalLoad }}%)</td>
+        </tr>
+      </tbody>
+    </table>
     <hr>
     <p><strong>Ratio of forecasted generation to average high generation</strong></p>
     <p>Wind: <strong>{{ displayCurrentRatioWindToInstalledWindPower }}%</strong> | Solar: <strong>{{ displayCurrentRatioSolarToInstalledSolarPower }}%</strong></p>
@@ -45,11 +62,15 @@ export default {
     return {
       selectedCountry: "",
       displayTime: 0,
+      ratioToAvgGeneration: "",
+      ratioToTotalLoad: "",
       displayCurrentWindPower: 0,
       displayCurrentSolarPower: 0,
+      displayCurrentTotalPower: 0,
       displayCurrentRatioWindToInstalledWindPower: 0,
       displayCurrentRatioSolarToInstalledSolarPower: 0,
       displayCurrentRatioWindAndSolarToItsSumPower: 0,
+      displayCurrentRatioWindAndSolarToTotalLoad: 0,
       countriesCodes: {
         AF: "Afghanistan",
         AX: "Aland Islands",
@@ -304,6 +325,19 @@ export default {
     closeRegionDetails () {
       this.$emit('close-region-details');
     },
+    transformPercentToText (ratio) {
+      if (ratio < 10) {
+        return 'VERY LOW';
+      } else if (ratio < 30) {
+        return 'LOW';
+      } else if (ratio < 50) {
+        return 'MEDIUM';
+      } else if (ratio < 70) {
+        return 'HIGH';
+      } else {
+        return 'VERY HIGH';
+      }
+    },
     recalcForecastdetails () {
       const currentObj = this.storeData.find((item) => {
         return item.country_code === this.selectedRegionData.country_code && item.time_iso === this.selectedTime;
@@ -312,11 +346,21 @@ export default {
       if(currentObj) {
         this.displayTime = currentObj.time;
         this.displayCurrentWindPower = naiveRound(Math.round(currentObj.wind_power) / 1000);
+        this.displayCurrentWindPower = this.displayCurrentWindPower < 0 ? 0 : this.displayCurrentWindPower;
+
         this.displayCurrentSolarPower = naiveRound(Math.round(currentObj.solar_power) / 1000);
+        this.displayCurrentSolarPower = this.displayCurrentSolarPower < 0 ? 0 : this.displayCurrentSolarPower;
+
+        this.displayCurrentTotalPower = this.displayCurrentWindPower + this.displayCurrentSolarPower;
+
         this.displayCurrentRatioWindToInstalledWindPower = naiveRound((this.displayCurrentWindPower / this.windCapacity) * 100, 1);
         this.displayCurrentRatioSolarToInstalledSolarPower = naiveRound((this.displayCurrentSolarPower / this.solarCapacity) * 100, 1);
         this.displayCurrentRatioWindAndSolarToItsSumPower = naiveRound(((this.displayCurrentWindPower + this.displayCurrentSolarPower) / this.totalCapacity) * 100, 1);
+        this.displayCurrentRatioWindAndSolarToTotalLoad = naiveRound(((this.displayCurrentWindPower + this.displayCurrentSolarPower) / this.totalLoad) * 100, 1);
         
+        this.ratioToAvgGeneration = this.transformPercentToText(this.displayCurrentRatioWindAndSolarToItsSumPower);
+        this.ratioToTotalLoad = this.transformPercentToText(this.displayCurrentRatioWindAndSolarToTotalLoad);
+
         document.querySelector(`#text-power-${this.selectedRegionData.country_code}`).textContent = naiveRound(this.displayCurrentWindPower + this.displayCurrentSolarPower) + ' GW';
         document.querySelector(`#text-ratio-${this.selectedRegionData.country_code}`).textContent = this.displayCurrentRatioWindAndSolarToItsSumPower + '%';
       }
