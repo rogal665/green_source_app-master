@@ -60,6 +60,7 @@ p {
 }
 
 hr {
+  margin-top: 10px;
   margin-bottom: 10px;
 }
 
@@ -157,6 +158,7 @@ h5 {
   color: #000000;
   font-size: 0.8rem;
   padding: 0 10px;
+  box-shadow: 0 0 5px #ccc;
 }
 
 .current-time {
@@ -224,7 +226,7 @@ h5 {
 .slider::-moz-range-thumb {
   width: 1.4rem;
   height: 1.4rem;
-  background: #fff;
+  background: #63a308;
   border: 2px solid #ccc;
   border-radius: 50%;
   cursor: pointer;
@@ -234,7 +236,7 @@ h5 {
 .slider::-ms-thumb {
   width: 1.4rem;
   height: 1.4rem;
-  background: #fff;
+  background: #63a308;
   border: 2px solid #ccc;
   border-radius: 50%;
   cursor: pointer;
@@ -249,7 +251,7 @@ h5 {
 .slider::-webkit-slider-thumb:hover,
 .slider::-moz-range-thumb:hover,
 .slider::-ms-thumb:hover {
-  background-color: #ccc;
+  background-color: #528a04;
   border-color: #fff;
 }
 
@@ -278,6 +280,7 @@ h5 {
   border-radius: 5px;
   padding: 10px;
   text-align: center;
+  box-shadow: 0 0 5px #ccc;
 }
 
 .legend-wrapper {
@@ -305,7 +308,7 @@ h5 {
   font-size: 14px;
 }
 
-.legend-wrapper .legend-switch .switch {
+.switch {
   position: relative;
   display: inline-block;
   width: 60px;
@@ -313,13 +316,13 @@ h5 {
   margin: 0 10px;
 }
 
-.legend-wrapper .legend-switch .switch input {
+.switch input {
   opacity: 0;
   width: 0;
   height: 0;
 }
 
-.legend-wrapper .legend-switch .switch .slider {
+.switch .slider {
   height: 30px;
   position: absolute;
   cursor: pointer;
@@ -333,7 +336,7 @@ h5 {
   opacity: 1;
 }
 
-.legend-wrapper .legend-switch .switch .slider:before {
+.switch .slider:before {
   position: absolute;
   content: "";
   height: 24px;
@@ -345,11 +348,11 @@ h5 {
   border-radius: 50%;
 }
 
-.legend-wrapper .legend-switch .switch input:checked + .slider {
+.switch input:checked + .slider {
   background-color: #04aded;
 }
 
-.legend-wrapper .legend-switch .switch input:checked + .slider:before {
+.switch input:checked + .slider:before {
   transform: translateX(28px);
 }
 
@@ -364,6 +367,7 @@ h5 {
   width: 100%;
   height: 20px;
   border-radius: 3px;
+  box-shadow: 0 0 5px #dadada;
 }
 
 .extrime-values {
@@ -442,6 +446,57 @@ h5 {
   border-color: #fff;
 }
 
+.table-container {
+  width: 100%;
+  overflow-x: auto;
+  margin: 20px 0;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  border: 1px solid #ccc;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  color: #333;
+}
+
+table th, table td {
+  border: 1px solid #ccc;
+  padding: 5px 5px;
+  text-align: center;
+  font-size: 14px;
+}
+
+table th {
+  background-color: #a1a1a1;
+  color: #ffffff;
+}
+
+table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+table tr:hover {
+  background-color: #f1f1f1;
+}
+
+table .names {
+  width: 30%;
+}
+
+table .marker {
+  color: #fff;
+  width: 35%;
+}
+
+table caption {
+  caption-side: top;
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
 .svg-text {
   font-size: 4px;
   font-weight: 400;
@@ -454,12 +509,16 @@ h5 {
 .region-details {
   margin: 0 0.3rem;
   background-color: rgba(255, 255, 255, 0.95);
-  color: #fff;
+  color: #000000;
   border-radius: 5px;
   padding: 10px;
-  width: 22rem;
-  height: 26rem;
+  width: 35rem;
+  height: 40rem;
+  max-height: calc(100vh - 230px);
   position: relative;
+  border: 1px solid #dadada;
+  box-shadow: 0 0 5px #ccc;
+  overflow: auto;
 }
 
 .region-details .x-close-btn {
@@ -474,7 +533,7 @@ h5 {
 .region-details .x-close-btn .x-line {
   width: 25px;
   height: 3px;
-  background: #fff;
+  background: #000;
   display: inline-block;
   position: absolute;
   top: 50%;
@@ -548,6 +607,7 @@ h5 {
     margin-bottom: 2px;
   }
   .region-details hr {
+    margin-top: 5px;
     margin-bottom: 5px;
   }
   .extrime-values * {

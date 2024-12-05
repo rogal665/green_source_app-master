@@ -2,15 +2,15 @@
   <div>
     <div class="legend-wrapper">
       <div class="legend-title">
-        Green power ratio <br><small>%  of electricity from wind&sun to avg-high...</small>
+        Green electricity ratio <br><small>%  of electricity from wind&sun to avg-high...</small>
       </div>
       <div class="legend-switch">
-        <div class="switch-label">both generation</div>
+        <div class="switch-label">wind&sun generation</div>
         <label class="switch">
           <input type="checkbox" v-model="isChecked" @input="updateIsRatioToLoad">
           <span class="slider"></span>
         </label>
-        <div class="switch-label">total demand</div>
+        <div class="switch-label">total electricity demand</div>
       </div>
     </div>
     <div class="data-scale">

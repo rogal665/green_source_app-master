@@ -5,42 +5,136 @@
       <div class="x-line"></div>
     </a>
     <h3>{{ selectedCountry }}</h3>
-    <p><strong>Electricity generation forecast:<br>{{ displayTime }} [UTC]</strong></p>
-    <p>Wind: <strong>{{ displayCurrentWindPower }} GW</strong> | Solar: <strong>{{ displayCurrentSolarPower }} GW</strong> | Total: <strong>{{ displayCurrentTotalPower }} GW</strong> </p>
-    <hr>
-    <table>
-      <thead>
-        <tr>
-          <th colspan="2">Wind+Sun generation forecast ratio to</th>
-        </tr>
-        <tr>
-          <th>both avg-high generation</th>
-          <th>total demand</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>{{ ratioToAvgGeneration }} ({{ displayCurrentRatioWindAndSolarToItsSumPower }}%)</td>
-          <td>{{ ratioToTotalLoad }} ({{ displayCurrentRatioWindAndSolarToTotalLoad }}%)</td>
-        </tr>
-      </tbody>
-    </table>
-    <hr>
-    <p><strong>Ratio of forecasted generation to average high generation</strong></p>
-    <p>Wind: <strong>{{ displayCurrentRatioWindToInstalledWindPower }}%</strong> | Solar: <strong>{{ displayCurrentRatioSolarToInstalledSolarPower }}%</strong></p>
-    <p>Total: <strong>{{ displayCurrentRatioWindAndSolarToItsSumPower }}%</strong></p>
-    <hr>
-    <p><strong>Daily average high generation:</strong></p>
-    <p>Wind: <strong>{{ windCapacity }} GW</strong> | Solar: <strong>{{ solarCapacity }} GW</strong></p>
-    <p>Total: <strong>{{ totalCapacity }} GW</strong></p>
-    <hr>
-    <p>Total demand (avg-high): <strong>{{ totalLoad }} GW</strong></p>
+
+    <div class="summary">
+      <p><strong>Wind+Sun Electricity Generation Forecast: {{ displayCurrentTotalPower }} GW<br>{{ displayTime }} [UTC]</strong></p>
+      <table>
+        <thead>
+          <tr>
+            <th>Ratio to Avg-High Wind+Sun Generation</th>
+            <th>Ratio to Avg-High total electricity demand</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="marker" :style="'background-color:' + ratioToAvgGeneration.color">{{ ratioToAvgGeneration.label }} [{{ displayCurrentRatioWindAndSolarToItsSumPower }}%]</td>
+            <td class="marker" :style="'background-color:' + ratioToTotalLoad.color">{{ ratioToTotalLoad.label }} [{{ displayCurrentRatioWindAndSolarToTotalLoad }}%]</td>
+          </tr>
+          <tr>
+            <td>Map: <input type="radio"></td>
+            <td>Map: <input type="radio"></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <hr>
+
+      <table>
+        <thead>
+          <tr>
+            <th colspan="2">Details by source:</th>
+          </tr>
+          <tr>
+            <th>Wind</th>
+            <th>Solar</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="marker" :style="'background-color:' + ratioToWindAvgGeneration.color">{{ ratioToWindAvgGeneration.label }} [{{ displayCurrentWindPower }}%]</td>
+            <td class="marker" :style="'background-color:' + ratioToSolarAvgGeneration.color">{{ ratioToSolarAvgGeneration.label }} [{{ displayCurrentSolarPower }}%]</td>
+          </tr>
+          <tr>
+            <td>{{ displayCurrentWindPower }} GW</td>
+            <td>{{ displayCurrentSolarPower }} GW</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="datails">
+      <table>
+        <thead>
+          <tr>
+            <th colspan="3">Wind+Sun Electricity Generation Forecast:</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Date and Time:</td>
+            <td colspan="2">{{ displayTime }} [UTC]</td>
+          </tr>
+          <tr>
+            <td>Forecasted Value:</td>
+            <td colspan="2">{{ displayCurrentTotalPower }} GW</td>
+          </tr>
+        </tbody>
+        <thead>
+          <tr>
+            <th>Ratio to</th>
+            <th>Wind+Sun Generation</th>
+            <th>Total Electricity demand</th>
+          </tr>
+          <tr>
+            <td>Average High Daily Value:</td>
+            <td>&#772;x = {{ totalCapacity }}</td>
+            <td>&#772;x = {{ totalLoad }}</td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="names">Generation level:</td>
+            <td class="marker" :style="'background-color:' + ratioToAvgGeneration.color">{{ ratioToAvgGeneration.label }} [{{ displayCurrentRatioWindAndSolarToItsSumPower }}%]</td>
+            <td class="marker" :style="'background-color:' + ratioToTotalLoad.color">{{ ratioToTotalLoad.label }} [{{ displayCurrentRatioWindAndSolarToTotalLoad }}%]</td>
+          </tr>
+          <tr>
+            <td>Show on Map</td>
+            <td><input type="radio"></td>
+            <td><input type="radio"></td>
+          </tr>
+        </tbody>
+      </table>
+      
+      <hr>
+
+      <table>
+        <thead>
+          <tr>
+            <th colspan="3">Details by source of electricity:</th>
+          </tr>
+          <tr>
+            <th>Source:</th>
+            <th>Wind</th>
+            <th>Sun</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Forecasted Level:</td>
+            <td class="marker" :style="'background-color:' + ratioToWindAvgGeneration.color">{{ ratioToWindAvgGeneration.label }} [{{ displayCurrentWindPower }}%]</td>
+            <td class="marker" :style="'background-color:' + ratioToSolarAvgGeneration.color">{{ ratioToSolarAvgGeneration.label }} [{{ displayCurrentSolarPower }}%]</td>
+          </tr>
+          <tr>
+            <td>Forecasted Value:</td>
+            <td>{{ displayCurrentWindPower }} GW</td>
+            <td>{{ displayCurrentSolarPower }} GW</td>
+          </tr>
+          <tr>
+            <td>Average High Single Value:</td>
+            <td>&#772;x = {{ displayCurrentRatioWindToInstalledWindPower }} GW</td>
+            <td>&#772;x = {{ displayCurrentRatioWindAndSolarToItsSumPower }} GW</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
   </div>
 </template>
 
 <script>
 import "@/main.scss";
-import { naiveRound } from '../services/utils.js'
+import { naiveRound } from '../services/utils.js';
+import { transformPercentToText } from '../services/utils.js';
 
 export default {
   name: "RegionDetails",
@@ -64,6 +158,8 @@ export default {
       displayTime: 0,
       ratioToAvgGeneration: "",
       ratioToTotalLoad: "",
+      ratioToWindAvgGeneration: "",
+      ratioToSolarAvgGeneration: "",
       displayCurrentWindPower: 0,
       displayCurrentSolarPower: 0,
       displayCurrentTotalPower: 0,
@@ -325,19 +421,6 @@ export default {
     closeRegionDetails () {
       this.$emit('close-region-details');
     },
-    transformPercentToText (ratio) {
-      if (ratio < 10) {
-        return 'VERY LOW';
-      } else if (ratio < 30) {
-        return 'LOW';
-      } else if (ratio < 50) {
-        return 'MEDIUM';
-      } else if (ratio < 70) {
-        return 'HIGH';
-      } else {
-        return 'VERY HIGH';
-      }
-    },
     recalcForecastdetails () {
       const currentObj = this.storeData.find((item) => {
         return item.country_code === this.selectedRegionData.country_code && item.time_iso === this.selectedTime;
@@ -345,21 +428,24 @@ export default {
 
       if(currentObj) {
         this.displayTime = currentObj.time;
-        this.displayCurrentWindPower = naiveRound(Math.round(currentObj.wind_power) / 1000);
+        this.displayCurrentWindPower = naiveRound(Math.round(currentObj.wind_power) / 1000, 1);
         this.displayCurrentWindPower = this.displayCurrentWindPower < 0 ? 0 : this.displayCurrentWindPower;
 
-        this.displayCurrentSolarPower = naiveRound(Math.round(currentObj.solar_power) / 1000);
+        this.displayCurrentSolarPower = naiveRound(Math.round(currentObj.solar_power) / 1000, 1);
         this.displayCurrentSolarPower = this.displayCurrentSolarPower < 0 ? 0 : this.displayCurrentSolarPower;
 
-        this.displayCurrentTotalPower = this.displayCurrentWindPower + this.displayCurrentSolarPower;
+        this.displayCurrentTotalPower = naiveRound(this.displayCurrentWindPower + this.displayCurrentSolarPower);
 
         this.displayCurrentRatioWindToInstalledWindPower = naiveRound((this.displayCurrentWindPower / this.windCapacity) * 100, 1);
         this.displayCurrentRatioSolarToInstalledSolarPower = naiveRound((this.displayCurrentSolarPower / this.solarCapacity) * 100, 1);
         this.displayCurrentRatioWindAndSolarToItsSumPower = naiveRound(((this.displayCurrentWindPower + this.displayCurrentSolarPower) / this.totalCapacity) * 100, 1);
         this.displayCurrentRatioWindAndSolarToTotalLoad = naiveRound(((this.displayCurrentWindPower + this.displayCurrentSolarPower) / this.totalLoad) * 100, 1);
         
-        this.ratioToAvgGeneration = this.transformPercentToText(this.displayCurrentRatioWindAndSolarToItsSumPower);
-        this.ratioToTotalLoad = this.transformPercentToText(this.displayCurrentRatioWindAndSolarToTotalLoad);
+        this.ratioToAvgGeneration = transformPercentToText(this.displayCurrentRatioWindAndSolarToItsSumPower);
+        this.ratioToTotalLoad = transformPercentToText(this.displayCurrentRatioWindAndSolarToTotalLoad);
+
+        this.ratioToWindAvgGeneration = transformPercentToText(this.displayCurrentWindPower);
+        this.ratioToSolarAvgGeneration = transformPercentToText(this.displayCurrentSolarPower);
 
         document.querySelector(`#text-power-${this.selectedRegionData.country_code}`).textContent = naiveRound(this.displayCurrentWindPower + this.displayCurrentSolarPower) + ' GW';
         document.querySelector(`#text-ratio-${this.selectedRegionData.country_code}`).textContent = this.displayCurrentRatioWindAndSolarToItsSumPower + '%';
@@ -386,4 +472,12 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+  .summary {
+    display: none;
+  }
+
+  .datails {
+    display: block;
+  }
+</style>
