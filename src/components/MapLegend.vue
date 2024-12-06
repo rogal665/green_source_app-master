@@ -7,7 +7,7 @@
       <div class="legend-switch">
         <div class="switch-label">wind&sun generation</div>
         <label class="switch">
-          <input type="checkbox" v-model="isChecked" @input="updateIsRatioToLoad">
+          <input type="checkbox" v-model="isChecked">
           <span class="slider"></span>
         </label>
         <div class="switch-label">total electricity demand</div>
@@ -43,16 +43,23 @@ export default {
   },
   data() {
     return {
-      isChecked: true,
+      
     };
+  },
+  computed: {
+    isChecked: {
+      get () {
+        return this.$store.getters.getIsRatioToLoad;
+      },
+      set (value) {
+        console.log(this.isChecked);
+        this.$store.commit("setIsRatioToLoad", value);
+      }
+    }
   },
   methods: {
     roundUpToTen(number) {
       return Math.ceil(number / 10) * 10;
-    },
-    updateIsRatioToLoad() {
-      console.log(this.isChecked);
-      this.$store.commit("setIsRatioToLoad", this.isChecked);
     }
   },
 };

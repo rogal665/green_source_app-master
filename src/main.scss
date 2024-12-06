@@ -26,6 +26,30 @@ body {
   color: $grey-colour;
   overflow: hidden;
 }
+.btn {
+  border: none;
+  background: #63a308;
+  border-radius: 5px;
+  padding: 3px 10px;
+  color: #fff;
+  box-shadow: 0 0 5px #ccc;
+  cursor: pointer;
+  transition: all 0.2s linear;
+
+  &:hover {
+    background: #528a04 !important;
+  }
+  .triangle {
+    display: inline-block;
+    width: 0;
+    height: 0;
+    border-left: 9px solid transparent;
+    border-right: 9px solid transparent;
+    border-top: 9px solid rgba(255, 255, 255, 0.9); /* Change the color as needed */
+    margin-right: 3px;
+    transition: all 0.2s linear;
+  }
+}
 .btn:link,
 .btn:visited {
   background-color: $main-colour;
@@ -40,6 +64,9 @@ body {
 .btn:hover,
 .btn:active {
   background-color: $main-colour-light;
+}
+.text-center {
+  text-align: center;
 }
 .navbar {
   z-index: 2;
@@ -460,6 +487,7 @@ table {
   font-family: Arial, sans-serif;
   font-size: 14px;
   color: #333;
+  margin: 10px 0;
 
   th, td {
     border: 1px solid #ccc;
@@ -486,6 +514,13 @@ table {
   .marker {
     color: #fff;
     width: 35%;
+    cursor: pointer;
+
+    &.active {
+      box-shadow: 0 0 5px #fff inset;
+      border: 2px solid #000000;
+      box-shadow: 0 0 2px #7a7a7a inset;
+    }
   }
   caption {
     caption-side: top;

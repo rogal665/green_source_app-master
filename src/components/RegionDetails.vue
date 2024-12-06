@@ -6,7 +6,7 @@
     </a>
     <h3>{{ selectedCountry }}</h3>
 
-    <div class="summary">
+    <div class="summary" v-show="!showDetails">
       <p><strong>Wind+Sun Electricity Generation Forecast: {{ displayCurrentTotalPower }} GW<br>{{ displayTime }} [UTC]</strong></p>
       <table>
         <thead>
@@ -17,12 +17,12 @@
         </thead>
         <tbody>
           <tr>
-            <td class="marker" :style="'background-color:' + ratioToAvgGeneration.color">{{ ratioToAvgGeneration.label }} [{{ displayCurrentRatioWindAndSolarToItsSumPower }}%]</td>
-            <td class="marker" :style="'background-color:' + ratioToTotalLoad.color">{{ ratioToTotalLoad.label }} [{{ displayCurrentRatioWindAndSolarToTotalLoad }}%]</td>
+            <td @click="toggleRatioToLoad" class="marker" :class="{ active: !ratioToLoad }" :style="'background-color:' + ratioToAvgGeneration.color">{{ ratioToAvgGeneration.label }} [{{ displayCurrentRatioWindAndSolarToItsSumPower }}%]</td>
+            <td @click="toggleRatioToLoad" class="marker" :class="{ active: ratioToLoad }" :style="'background-color:' + ratioToTotalLoad.color">{{ ratioToTotalLoad.label }} [{{ displayCurrentRatioWindAndSolarToTotalLoad }}%]</td>
           </tr>
           <tr>
-            <td>Map: <input type="radio"></td>
-            <td>Map: <input type="radio"></td>
+            <td><label>Map: <input type="radio" v-model="ratioToLoad" name="map" :value="false"></label></td>
+            <td><label>Map: <input type="radio" v-model="ratioToLoad" name="map" :value="true"></label></td>
           </tr>
         </tbody>
       </table>
@@ -52,7 +52,7 @@
       </table>
     </div>
 
-    <div class="datails">
+    <div class="datails" v-show="showDetails">
       <table>
         <thead>
           <tr>
@@ -84,13 +84,13 @@
         <tbody>
           <tr>
             <td class="names">Generation level:</td>
-            <td class="marker" :style="'background-color:' + ratioToAvgGeneration.color">{{ ratioToAvgGeneration.label }} [{{ displayCurrentRatioWindAndSolarToItsSumPower }}%]</td>
-            <td class="marker" :style="'background-color:' + ratioToTotalLoad.color">{{ ratioToTotalLoad.label }} [{{ displayCurrentRatioWindAndSolarToTotalLoad }}%]</td>
+            <td @click="toggleRatioToLoad" class="marker" :class="{ active: !ratioToLoad }" :style="'background-color:' + ratioToAvgGeneration.color">{{ ratioToAvgGeneration.label }} [{{ displayCurrentRatioWindAndSolarToItsSumPower }}%]</td>
+            <td @click="toggleRatioToLoad" class="marker" :class="{ active: ratioToLoad }" :style="'background-color:' + ratioToTotalLoad.color">{{ ratioToTotalLoad.label }} [{{ displayCurrentRatioWindAndSolarToTotalLoad }}%]</td>
           </tr>
           <tr>
             <td>Show on Map</td>
-            <td><input type="radio"></td>
-            <td><input type="radio"></td>
+            <td><input type="radio" v-model="ratioToLoad" name="map2" :value="false"></td>
+            <td><input type="radio" v-model="ratioToLoad" name="map2" :value="true"></td>
           </tr>
         </tbody>
       </table>
@@ -127,6 +127,9 @@
         </tbody>
       </table>
     </div>
+    <p class="text-center">
+      <button class="btn" :class="{ 'active': showDetails }" @click.prevent="toggleDetails"><span class="triangle"></span>Show <span class="summary">Summary</span><span class="details">Details</span></button>
+    </p>
 
   </div>
 </template>
@@ -154,6 +157,7 @@ export default {
   },
   data() {
     return {
+      showDetails: false,
       selectedCountry: "",
       displayTime: 0,
       ratioToAvgGeneration: "",
@@ -418,6 +422,12 @@ export default {
     };
   },
   methods: {
+    toggleRatioToLoad () {
+      this.ratioToLoad = !this.ratioToLoad;
+    },
+    toggleDetails () {
+      this.showDetails = !this.showDetails;
+    },
     closeRegionDetails () {
       this.$emit('close-region-details');
     },
@@ -467,17 +477,37 @@ export default {
     },
     totalLoad () {
       return this.selectedRegionData.total_load_avg_high / 1000;
+    },
+    ratioToLoad: {
+      get () {
+        return this.$store.getters.getIsRatioToLoad;
+      },
+      set (value) {
+        this.$store.commit("setIsRatioToLoad", value);
+      }
     }
   }
 };
 </script>
 
-<style scoped>
-  .summary {
-    display: none;
+<style scoped lang="scss">
+  .btn {
+    .details {
+      display: inline;
+    }
+    .summary {
+      display: none;
+    }
   }
-
-  .datails {
-    display: block;
+  .btn.active {
+    .triangle {
+      transform: rotate(180deg);
+    }
+    .details {
+      display: none;
+    }
+    .summary {
+      display: inline;
+    }
   }
 </style>

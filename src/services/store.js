@@ -104,8 +104,7 @@ const store = createStore({
       return state.capacities;
     },
     getTotalCapacities(state) {
-      console.log("state", state.isRatioToLoad);
-      return state.isRatioToLoad ? state.totalCapacities : state.totalLoad;
+      return state.isRatioToLoad ? state.totalLoad : state.totalCapacities;
     },
     getIsRatioToLoad(state) {
       return state.isRatioToLoad;
