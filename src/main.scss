@@ -251,7 +251,6 @@ h5 {
   width: 1.4rem;
   height: 1.4rem;
   background: #63a308;
-  border: 2px solid #ccc;
   border-radius: 50%;
   cursor: pointer;
   transition:
@@ -263,7 +262,6 @@ h5 {
   width: 1.4rem;
   height: 1.4rem;
   background: #63a308;
-  border: 2px solid #ccc;
   border-radius: 50%;
   cursor: pointer;
   transition:
@@ -354,7 +352,7 @@ h5 {
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: #00b717;
+    background-color: #63a308;
     transition: 0.4s;
     border-radius: 20px;
     opacity: 1;
@@ -400,16 +398,16 @@ h5 {
 /*settings*/
 .scale-btn {
   display: block;
-  background-color: $main-colour;
+  background-color: #63a308;
   width: 2rem;
   height: 2rem;
   border-radius: 5px;
   border-style: none;
-  color: $grey-colour-light;
+  color: #fff;
 }
 
 .scale-btn:hover {
-  background-color: $main-colour-light;
+  background-color: #528a04;
 }
 
 .zoom-slider-container {
@@ -431,8 +429,7 @@ h5 {
   appearance: none;
   width: 1.4rem;
   height: 1.4rem;
-  background: #fff;
-  border: 2px solid #ccc;
+  background: #63a308;
   border-radius: 50%;
   cursor: pointer;
   transition:
@@ -442,8 +439,7 @@ h5 {
 .zoom-slider::-moz-range-thumb {
   width: 20px;
   height: 20px;
-  background: #fff;
-  border: 2px solid #ccc;
+  background: #63a308;
   border-radius: 50%;
   cursor: pointer;
   transition:
@@ -454,8 +450,7 @@ h5 {
 .zoom-slider::-ms-thumb {
   width: 20px;
   height: 20px;
-  background: #fff;
-  border: 2px solid #ccc;
+  background: #63a308;
   border-radius: 50%;
   cursor: pointer;
   transition:
@@ -470,7 +465,7 @@ h5 {
 .zoom-slider::-webkit-slider-thumb:hover,
 .zoom-slider::-moz-range-thumb:hover,
 .zoom-slider::-ms-thumb:hover {
-  background-color: #ccc;
+  background-color: #528a04;
   border-color: #fff;
 }
 
@@ -487,7 +482,7 @@ table {
   font-family: Arial, sans-serif;
   font-size: 14px;
   color: #333;
-  margin: 10px 0;
+  margin: 10px 0 30px;
 
   th, td {
     border: 1px solid #ccc;
@@ -511,10 +506,10 @@ table {
   .names {
     width: 30%
   }
+  
   .marker {
     color: #fff;
     width: 35%;
-    cursor: pointer;
 
     &.active {
       box-shadow: 0 0 5px #fff inset;
@@ -522,12 +517,21 @@ table {
       box-shadow: 0 0 2px #7a7a7a inset;
     }
   }
+
+  &.general .marker {
+    cursor: pointer;
+  }
+
   caption {
     caption-side: top;
     font-size: 16px;
     font-weight: bold;
     margin-bottom: 10px;
   }
+}
+
+table:last-of-type {
+  margin-bottom: 20px;
 }
 
 .svg-text {
@@ -546,7 +550,8 @@ table {
   border-radius: 5px;
   padding: 10px;
   width: 35rem;
-  height: 40rem;
+  height: 41.5rem;
+  min-height: 510px;
   max-height: calc(100vh - 230px);
   position: relative;
   border: 1px solid #dadada;

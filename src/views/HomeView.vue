@@ -56,8 +56,7 @@ import TimeLine from "@/components/MapTimeLine.vue";
 import RegionDetails from "@/components/RegionDetails.vue";
 import MapLegend from "@/components/MapLegend.vue";
 import MapSettings from "@/components/MapSettings.vue";
-import { naiveRound } from '../services/utils.js'
-import { getCountrieDetails } from "@/services/countries-data";
+import { naiveRound, transformPercentToText } from '../services/utils.js'
 
 export default {
   name: "HomeView",
@@ -161,10 +160,15 @@ export default {
         await this.$store.dispatch("getCountryCapacities", SelectedRegion)
         const countriesDetails = await this.$store.getters.getRegion[0];
         this.selectedRegionData = countriesDetails;
-        this.countryFound = true;
+        if(!!this.selectedRegionData.solar_capacity_avg_high) {
+          this.countryFound = true;
+        } else {
+          this.selectedRegionData = {}
+          this.countryFound = false;
+        }
       }
       catch {
-        this.selectedRegionData = {},
+        this.selectedRegionData = {};
         this.countryFound = false;
       }
 
@@ -283,10 +287,13 @@ export default {
         });
         
         if(currentObj) {
+          debugger
           const displayCurrentWindAndSolarPower = naiveRound(Math.round(parseFloat(currentObj.wind_power) + parseFloat(currentObj.solar_power)) / 1000);
+          let displayCurrentWindAndSolarPowerLabel = transformPercentToText(displayCurrentWindAndSolarPower);
+              displayCurrentWindAndSolarPowerLabel = displayCurrentWindAndSolarPowerLabel.label;
           const displayCurrentRatioWindAndSolarToItsSumPower = naiveRound((displayCurrentWindAndSolarPower / parseFloat(this.totalCapacities[countryCode])) * 100, 1);
 
-          document.querySelector(`#text-power-${countryCode}`).textContent = displayCurrentWindAndSolarPower + ' GW';
+          document.querySelector(`#text-power-${countryCode}`).textContent = displayCurrentWindAndSolarPowerLabel;
           document.querySelector(`#text-ratio-${countryCode}`).textContent = displayCurrentRatioWindAndSolarToItsSumPower + '%';
         }
 

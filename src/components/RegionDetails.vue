@@ -8,7 +8,7 @@
 
     <div class="summary" v-show="!showDetails">
       <p><strong>Wind+Sun Electricity Generation Forecast: {{ displayCurrentTotalPower }} GW<br>{{ displayTime }} [UTC]</strong></p>
-      <table>
+      <table class="general">
         <thead>
           <tr>
             <th>Ratio to Avg-High Wind+Sun Generation</th>
@@ -27,8 +27,6 @@
         </tbody>
       </table>
 
-      <hr>
-
       <table>
         <thead>
           <tr>
@@ -41,8 +39,8 @@
         </thead>
         <tbody>
           <tr>
-            <td class="marker" :style="'background-color:' + ratioToWindAvgGeneration.color">{{ ratioToWindAvgGeneration.label }} [{{ displayCurrentWindPower }}%]</td>
-            <td class="marker" :style="'background-color:' + ratioToSolarAvgGeneration.color">{{ ratioToSolarAvgGeneration.label }} [{{ displayCurrentSolarPower }}%]</td>
+            <td class="marker" :style="'background-color:' + ratioToWindAvgGeneration.color">{{ ratioToWindAvgGeneration.label }} [{{ displayCurrentRatioWindToInstalledWindPower }}%]</td>
+            <td class="marker" :style="'background-color:' + ratioToSolarAvgGeneration.color">{{ ratioToSolarAvgGeneration.label }} [{{ displayCurrentRatioSolarToInstalledSolarPower }}%]</td>
           </tr>
           <tr>
             <td>{{ displayCurrentWindPower }} GW</td>
@@ -53,7 +51,7 @@
     </div>
 
     <div class="datails" v-show="showDetails">
-      <table>
+      <table class="general">
         <thead>
           <tr>
             <th colspan="3">Wind+Sun Electricity Generation Forecast:</th>
@@ -94,8 +92,6 @@
           </tr>
         </tbody>
       </table>
-      
-      <hr>
 
       <table>
         <thead>
@@ -111,8 +107,8 @@
         <tbody>
           <tr>
             <td>Forecasted Level:</td>
-            <td class="marker" :style="'background-color:' + ratioToWindAvgGeneration.color">{{ ratioToWindAvgGeneration.label }} [{{ displayCurrentWindPower }}%]</td>
-            <td class="marker" :style="'background-color:' + ratioToSolarAvgGeneration.color">{{ ratioToSolarAvgGeneration.label }} [{{ displayCurrentSolarPower }}%]</td>
+            <td class="marker" :style="'background-color:' + ratioToWindAvgGeneration.color">{{ ratioToWindAvgGeneration.label }} [{{ displayCurrentRatioWindToInstalledWindPower }}%]</td>
+            <td class="marker" :style="'background-color:' + ratioToSolarAvgGeneration.color">{{ ratioToSolarAvgGeneration.label }} [{{ displayCurrentRatioSolarToInstalledSolarPower }}%]</td>
           </tr>
           <tr>
             <td>Forecasted Value:</td>
@@ -121,8 +117,8 @@
           </tr>
           <tr>
             <td>Average High Single Value:</td>
-            <td>&#772;x = {{ displayCurrentRatioWindToInstalledWindPower }} GW</td>
-            <td>&#772;x = {{ displayCurrentRatioWindAndSolarToItsSumPower }} GW</td>
+            <td>&#772;x = {{ windCapacity }} GW</td>
+            <td>&#772;x = {{ solarCapacity }} GW</td>
           </tr>
         </tbody>
       </table>
