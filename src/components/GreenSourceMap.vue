@@ -420,38 +420,38 @@
           />
         </g>
         <g>
-          <text id="text-power-AT" data-id="AT" class="svg-text" x="303" y="594">0.00 GW</text>
-          <text id="text-ratio-AT" data-id="AT" class="svg-text" x="303" y="599">0%</text>
+          <text id="text-power-AT" data-id="AT" class="svg-text" x="304" y="594">No data</text>
+          <text id="text-ratio-AT" data-id="AT" class="svg-text" x="304" y="599">0%</text>
 
-          <text id="text-power-BE" data-id="BE" class="svg-text" x="235" y="560">0.00 GW</text>
-          <text id="text-ratio-BE" data-id="BE" class="svg-text" x="235" y="565">0%</text>
+          <text id="text-power-BE" data-id="BE" class="svg-text" x="236" y="560">No data</text>
+          <text id="text-ratio-BE" data-id="BE" class="svg-text" x="236" y="565">0%</text>
           
-          <text id="text-power-DK" data-id="DK" class="svg-text" x="267" y="500">0.00 GW</text>
-          <text id="text-ratio-DK" data-id="DK" class="svg-text" x="267" y="505">0%</text>
+          <text id="text-power-DK" data-id="DK" class="svg-text" x="270" y="500">No data</text>
+          <text id="text-ratio-DK" data-id="DK" class="svg-text" x="270" y="505">0%</text>
 
-          <text id="text-power-DE" data-id="DE" class="svg-text" x="275" y="545">0.00 GW</text>
-          <text id="text-ratio-DE" data-id="DE" class="svg-text" x="275" y="550">0%</text>
+          <text id="text-power-DE" data-id="DE" class="svg-text" x="273" y="545">No data</text>
+          <text id="text-ratio-DE" data-id="DE" class="svg-text" x="273" y="550">0%</text>
           
-          <text id="text-power-FR" data-id="FR" class="svg-text" x="220" y="590">0.00 GW</text>
+          <text id="text-power-FR" data-id="FR" class="svg-text" x="220" y="590">No data</text>
           <text id="text-ratio-FR" data-id="FR" class="svg-text" x="220" y="595">0%</text>
           
-          <text id="text-power-HU" data-id="HU" class="svg-text" x="332" y="599">0.00 GW</text>
-          <text id="text-ratio-HU" data-id="HU" class="svg-text" x="332" y="604">0%</text>
+          <text id="text-power-HU" data-id="HU" class="svg-text" x="335" y="599">No data</text>
+          <text id="text-ratio-HU" data-id="HU" class="svg-text" x="335" y="604">0%</text>
           
-          <text id="text-power-IT" data-id="IT" class="svg-text" x="275" y="616">0.00 GW</text>
+          <text id="text-power-IT" data-id="IT" class="svg-text" x="275" y="616">No data</text>
           <text id="text-ratio-IT" data-id="IT" class="svg-text" x="275" y="621">0%</text>
           
-          <text id="text-power-NL" data-id="NL" class="svg-text" x="243" y="543">0.00 GW</text>
+          <text id="text-power-NL" data-id="NL" class="svg-text" x="243" y="543">No data</text>
           <text id="text-ratio-NL" data-id="NL" class="svg-text" x="243" y="548">0%</text>
 
-          <text id="text-power-PL" data-id="PL" class="svg-text" x="332" y="545">0.00 GW</text>
+          <text id="text-power-PL" data-id="PL" class="svg-text" x="332" y="545">No data</text>
           <text id="text-ratio-PL" data-id="PL" class="svg-text" x="332" y="550">0%</text>
 
-          <text id="text-power-CZ" data-id="CZ" class="svg-text" x="305" y="570">0.00 GW</text>
+          <text id="text-power-CZ" data-id="CZ" class="svg-text" x="305" y="570">No data</text>
           <text id="text-ratio-CZ" data-id="CZ" class="svg-text" x="305" y="575">0%</text>
 
-          <text id="text-power-SK" data-id="SK" class="svg-text" x="333" y="582">0.00 GW</text>
-          <text id="text-ratio-SK" data-id="SK" class="svg-text" x="333" y="587">0%</text>
+          <text id="text-power-SK" data-id="SK" class="svg-text" x="335" y="582">No data</text>
+          <text id="text-ratio-SK" data-id="SK" class="svg-text" x="335" y="587">0%</text>
         </g>
       </svg>
     </div>

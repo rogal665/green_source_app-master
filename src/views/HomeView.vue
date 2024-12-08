@@ -287,13 +287,11 @@ export default {
         });
         
         if(currentObj) {
-          debugger
           const displayCurrentWindAndSolarPower = naiveRound(Math.round(parseFloat(currentObj.wind_power) + parseFloat(currentObj.solar_power)) / 1000);
-          let displayCurrentWindAndSolarPowerLabel = transformPercentToText(displayCurrentWindAndSolarPower);
-              displayCurrentWindAndSolarPowerLabel = displayCurrentWindAndSolarPowerLabel.label;
           const displayCurrentRatioWindAndSolarToItsSumPower = naiveRound((displayCurrentWindAndSolarPower / parseFloat(this.totalCapacities[countryCode])) * 100, 1);
+          const displayCurrentRatioWindAndSolarToItsSumPowerLabel = transformPercentToText(displayCurrentRatioWindAndSolarToItsSumPower);
 
-          document.querySelector(`#text-power-${countryCode}`).textContent = displayCurrentWindAndSolarPowerLabel;
+          document.querySelector(`#text-power-${countryCode}`).textContent = displayCurrentRatioWindAndSolarToItsSumPowerLabel.label;
           document.querySelector(`#text-ratio-${countryCode}`).textContent = displayCurrentRatioWindAndSolarToItsSumPower + '%';
         }
 

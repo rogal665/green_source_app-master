@@ -1,5 +1,5 @@
 <template>
-  <div v-if="selectedRegionData.country_code" class="details-container">
+  <div v-if="selectedRegionData.country_code" class="details-container" :class="{ 'details': showDetails }">
     <a href="#" @click.prevent="closeRegionDetails" class="x-close-btn">
       <div class="x-line"></div>
       <div class="x-line"></div>
@@ -453,8 +453,8 @@ export default {
         this.ratioToWindAvgGeneration = transformPercentToText(this.displayCurrentWindPower);
         this.ratioToSolarAvgGeneration = transformPercentToText(this.displayCurrentSolarPower);
 
-        document.querySelector(`#text-power-${this.selectedRegionData.country_code}`).textContent = naiveRound(this.displayCurrentWindPower + this.displayCurrentSolarPower) + ' GW';
-        document.querySelector(`#text-ratio-${this.selectedRegionData.country_code}`).textContent = this.displayCurrentRatioWindAndSolarToItsSumPower + '%';
+        // document.querySelector(`#text-power-${this.selectedRegionData.country_code}`).textContent = naiveRound(this.displayCurrentWindPower + this.displayCurrentSolarPower) + ' GW';
+        // document.querySelector(`#text-ratio-${this.selectedRegionData.country_code}`).textContent = this.displayCurrentRatioWindAndSolarToItsSumPower + '%';
       }
     }
   },

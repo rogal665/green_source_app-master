@@ -21,19 +21,19 @@
         </svg>
 
         <a href="#" @click.prevent="scrollBackward" class="timeline-controllers">
-          <img src="../assets/backward.png" alt="Step backward">
+          <div class="btn-timeline btn-backward"></div>
         </a>
 
         <a href="#" v-show="!isScrolling" @click.prevent="playForward" class="timeline-controllers">
-          <img src="../assets/play.png" alt="play">
+          <div class="btn-timeline btn-play"></div>
         </a>
 
         <a href="#" v-show="isScrolling" @click.prevent="stopScrolling" class="timeline-controllers">
-          <img src="../assets/pause.png" alt="pause">
+          <div class="btn-timeline btn-pause"></div>
         </a>
 
         <a href="#" @click.prevent="scrollForward" class="timeline-controllers">
-          <img src="../assets/forward.png" alt="Step forward">
+          <div class="btn-timeline btn-forward"></div>
         </a>
 
       </div>

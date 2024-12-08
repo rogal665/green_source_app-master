@@ -14,7 +14,7 @@ $grey-colour-light: #000000;
   font-family: Inter, sens-serif;
   font-weight: 500;
   line-height: 1.75;
-  font-size: 2vw;
+  font-size: 13px;
   @media (min-width: 800px) {
     font-size: 16px;
   }
@@ -35,6 +35,12 @@ body {
   box-shadow: 0 0 5px #ccc;
   cursor: pointer;
   transition: all 0.2s linear;
+  font-size: 14px;
+
+  & * {
+    font-size: 14px;
+    color: #fff;
+  }
 
   &:hover {
     background: #528a04 !important;
@@ -65,6 +71,7 @@ body {
 .btn:active {
   background-color: $main-colour-light;
 }
+
 .text-center {
   text-align: center;
 }
@@ -295,6 +302,83 @@ h5 {
     max-width: 100%;
   }
 }
+
+.btn-timeline {
+  width: 32px;
+  height: 32px;
+  background-color: #63a308;
+  border-radius: 50%;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #528a04;
+  }
+
+  &::before,
+  &::after {
+    content: '';
+    width: 0;
+    height: 0;
+    border-style: solid;
+    position: absolute;
+  }
+
+  &.btn-pause::before,
+  &.btn-pause::after {
+    width: 3px;
+    height: 20px;
+    background: #fff;
+    border: none;
+  }
+  &.btn-pause::before {
+    transform: translateX(4px);
+  }
+  &.btn-pause::after {
+    transform: translateX(-4px);
+  }
+
+  &.btn-forward::before,
+  &.btn-forward::after {
+    border-width: 7px 0 7px 11px;
+    border-color: transparent transparent transparent #fff;
+  }
+
+  &.btn-play::before {
+    border-width: 8px 0 8px 12px;
+    border-color: transparent transparent transparent #fff;
+    transform: translateX(2px);
+  }
+  &.btn-play::after {
+    content: none;
+  } 
+
+  &.btn-backward::before,
+  &.btn-backward::after {
+    border-width: 7px 11px 7px 0;
+    border-color: transparent #fff transparent transparent;
+  }
+
+  &.btn-forward::before {
+    transform: translateX(-3px);
+  }
+
+  &.btn-forward::after {
+    transform: translateX(5px);
+  }
+
+  &.btn-backward::before {
+    transform: translateX(-5px);
+  }
+
+  &.btn-backward::after {
+    transform: translateX(3px);
+  }
+}
+
 /*legend*/
 .legend {
   display: flex;
@@ -404,6 +488,7 @@ h5 {
   border-radius: 5px;
   border-style: none;
   color: #fff;
+  cursor: pointer
 }
 
 .scale-btn:hover {
@@ -535,7 +620,7 @@ table:last-of-type {
 }
 
 .svg-text {
-  font-size: 4px;
+  font-size: 3px;
   font-weight: 400;
   fill: #fff;
   opacity: 0.8;
@@ -550,7 +635,6 @@ table:last-of-type {
   border-radius: 5px;
   padding: 10px;
   width: 35rem;
-  height: 41.5rem;
   min-height: 510px;
   max-height: calc(100vh - 230px);
   position: relative;
@@ -636,8 +720,14 @@ table:last-of-type {
     top: 0rem;
   }
   .region-details {
-    width: 100%;
+    width: calc(100vw - 0.6rem);
     height: auto;
+    margin-top: 0.3rem;
+
+    &.details {
+      height: 60rem;
+      max-height: calc(100vh - 1rem);
+    }
 
     p {
       font-size: 15px;
@@ -662,7 +752,7 @@ table:last-of-type {
   }
   .timeline,
   .legend {
-    margin: 3px 0;
+    margin: 3px;
     padding: 2px 5px;
   }
   .legend {
