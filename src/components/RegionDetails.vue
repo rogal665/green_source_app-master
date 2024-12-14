@@ -450,8 +450,8 @@ export default {
         this.ratioToAvgGeneration = transformPercentToText(this.displayCurrentRatioWindAndSolarToItsSumPower);
         this.ratioToTotalLoad = transformPercentToText(this.displayCurrentRatioWindAndSolarToTotalLoad);
 
-        this.ratioToWindAvgGeneration = transformPercentToText(this.displayCurrentWindPower);
-        this.ratioToSolarAvgGeneration = transformPercentToText(this.displayCurrentSolarPower);
+        this.ratioToWindAvgGeneration = transformPercentToText(this.displayCurrentRatioWindToInstalledWindPower);
+        this.ratioToSolarAvgGeneration = transformPercentToText(this.displayCurrentRatioSolarToInstalledSolarPower);
 
         // document.querySelector(`#text-power-${this.selectedRegionData.country_code}`).textContent = naiveRound(this.displayCurrentWindPower + this.displayCurrentSolarPower) + ' GW';
         // document.querySelector(`#text-ratio-${this.selectedRegionData.country_code}`).textContent = this.displayCurrentRatioWindAndSolarToItsSumPower + '%';
